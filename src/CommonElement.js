@@ -9,6 +9,7 @@ class CommonElement {
     this.attrs = attrs
     this.events = events
     this.node = document.createElement(name)
+    this.parent = null
   }
 
   enter() {
@@ -20,6 +21,17 @@ class CommonElement {
   exit() {
     for (let name in this.events) {
       this.off(name, this.events[name])
+    }
+  }
+
+  setParent(vnode) {
+    this.parent = vnode
+  }
+
+  remove() {
+    if (this.parent) {
+      getNode(this.parent).removeChild(this.node)
+      this.parent = null
     }
   }
 

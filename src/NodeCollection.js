@@ -3,55 +3,56 @@ class NodeCollection extends Collection {
   constructor(parent, children) {
     super(children)
     this.parent = parent
+    appendNodes(this.parent, children)
   }
 
   enter() {
+    this.items.forEach(item => {
+      getVirtualNode(item).enter()
+    })
   }
 
   exit() {
+    this.items.forEach(item => {
+      getVirtualNode(item).exit()
+    })
   }
 
   // override Collection methods
 
   set(items) {
-    // set items
-
+    emptyNodes(this.parent)
+    appendNodes(this.parent, items)
     super.set(items)
   }
 
   insert(item) {
-    // insert element
-
+    insertNode(this.parent, item)
     super.insert(item)
   }
 
   append(item) {
-    // append element
-
+    appendNode(this.parent, item)
     super.append(item)
   }
 
   insertBefore(item, beforeId) {
-    // insertBefore element
-
+    insertNodeBefore(this.parent, item, this.get(beforeId))
     super.insertBefore(item, beforeId)
   }
 
   move(id, beforeId) {
-    // move element
-
+    insertNodeBefore(this.parent, this.get(id), this.get(beforeId))
     super.move(id, beforeId)
   }
 
   remove(id) {
-    // remove element
-
+    removeNode(this.parent, this.get(id))
     super.remove(id)
   }
 
   empty() {
-    // remove all children
-
+    emptyNodes(this.parent)
     super.empty()
   }
 

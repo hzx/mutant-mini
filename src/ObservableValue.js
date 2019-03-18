@@ -2,6 +2,7 @@
 class ObservableValue extends Observable {
   constructor(value) {
     super()
+    this.observableType = OBSERVABLE_TYPE_VALUE
     this.value = value
   }
 

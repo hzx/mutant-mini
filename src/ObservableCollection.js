@@ -2,6 +2,7 @@
 class ObservableCollection extends Collection {
   constructor(items) {
     super(items)
+    this.observableType = OBSERVABLE_TYPE_COLLECTION
     // events
     this.oSet = new Observable()
     this.oInsert = new Observable()

@@ -1,6 +1,8 @@
 
 class ObservableObject extends Observable {
   constructor(obj) {
+    super()
+    this.observableType = OBSERVABLE_TYPE_OBJECT
     this.obj = obj
   }
 
@@ -13,5 +15,9 @@ class ObservableObject extends Observable {
     }
 
     this.obj[name] = value
+  }
+
+  get() {
+    return this.obj
   }
 }

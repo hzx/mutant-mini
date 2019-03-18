@@ -13,6 +13,18 @@ class Collection {
     this.items = items
   }
 
+  size() {
+    return this.items.length
+  }
+
+  forEach(cb) {
+    this.items.forEach(cb)
+  }
+
+  map(cb) {
+    return this.items.map(cb)
+  }
+
   insert(item) {
     const items = new Array(this.items.length + 1)
     items[0] = item

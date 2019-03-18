@@ -5,6 +5,11 @@ class NodeObservableCollection extends NodeCollection {
     this.parent = parent
     this.collection = collection
     this.render = render
+    this.renderCollection()
+  }
+
+  renderCollection() {
+    this.set(this.collection.map(item => this.render(item)).filter(item => item))
   }
 
   enter() {

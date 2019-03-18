@@ -1,21 +1,21 @@
 
 class Observable {
   constructor() {
-    this.handlers = {}
+    this.handlers_ = {}
   }
 
   subscribe(handler) {
     if (!handler.hash) handler.hash = Hasher.generate()
-    this.handlers[handler.hash] = handler
+    this.handlers_[handler.hash] = handler
   }
 
   unsubscribe(handler) {
-    if (handler.hash) delete this.handlers[handler.hash]
+    if (handler.hash) delete this.handlers_[handler.hash]
   }
 
   notify(e) {
-    for (let hash in this.handlers) {
-      this.handlers[hash](e)
+    for (let hash in this.handlers_) {
+      this.handlers_[hash](e)
     }
   }
 }

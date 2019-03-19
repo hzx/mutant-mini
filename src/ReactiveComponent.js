@@ -1,5 +1,5 @@
 
-class ReactiveElement extends Component {
+class ReactiveComponent extends Component {
   constructor(obj, render, deps) {
     super()
     this.obj = obj

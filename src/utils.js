@@ -7,8 +7,8 @@ function textNode(value) {
   return new TextNode(value)
 }
 
-function reactiveElement(name, attrs, events, obj, render, deps) {
-  return new ReactiveElement(name, attrs, events, obj, render, deps)
+function reactiveComponent(obj, render, deps) {
+  return new ReactiveComponent(obj, render, deps)
 }
 
 function reactiveElementMap(name, attrs, events, collection, render) {
@@ -65,18 +65,6 @@ function div(attrs, events, childs) {
 
 function span(attrs, events, childs) {
   return element('span', attrs, events, childs)
-}
-
-function rdiv(attrs, events, obj, render, deps) {
-  return reactiveElement('div', attrs, events, obj, render, deps) {
-}
-
-function rspan(attrs, events, obj, render, deps) {
-  return reactiveElement('span', attrs, events, obj, render, deps) {
-}
-
-function rmap(attrs, events, collection, render) {
-  return reactiveElementMap('div', attrs, events, collection, render)
 }
 
 function text(value) {

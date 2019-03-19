@@ -4,9 +4,11 @@ export default {
   toObservableValue,
   toObservableObject,
   toObservableCollection,
-  div, rdiv,
-  span, rspan,
-  rmap,
-  text, rtext,
+  e: element,
+  div,
+  span,
+  rc: reactiveComponent,
+  rm: reactiveComponentMap,
+  t: text, rt: rtext,
   Component
 }

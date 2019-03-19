@@ -14,7 +14,7 @@ cat \
   Component.js \
   NodeCollection.js \
   NodeObservableCollection.js \
-  ReactiveElement.js \
+  ReactiveComponent.js \
   ReactiveTextNode.js \
   ReactiveElementMap.js \
   utils.js \

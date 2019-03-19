@@ -7,6 +7,12 @@ function textNode(value) {
   return new TextNode(value)
 }
 
+function component(ComponentType, ...params) {
+  const c = new ComponentType(...params)
+  c.element = c.render()
+  return c
+}
+
 function reactiveComponent(obj, render, deps) {
   const c = new ReactiveComponent(obj, render, deps)
   c.element = c.render()

@@ -12,8 +12,6 @@ class Component {
   }
 
   render() {
-    return element('div', [], [], [
-      text('TODO: Override Component.render')
-    ])
+    throw 'TODO: Override Component.render method'
   }
 }

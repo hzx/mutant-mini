@@ -8,7 +8,9 @@ function textNode(value) {
 }
 
 function reactiveComponent(obj, render, deps) {
-  return new ReactiveComponent(obj, render, deps)
+  const c = new ReactiveComponent(obj, render, deps)
+  c.element = c.render()
+  return c
 }
 
 function reactiveElementMap(name, attrs, events, collection, render) {

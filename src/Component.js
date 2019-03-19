@@ -10,4 +10,10 @@ class Component {
     this.refs[name] = node
     return node
   }
+
+  render() {
+    return element('div', [], [], [
+      text('TODO: Override Component.render')
+    ])
+  }
 }

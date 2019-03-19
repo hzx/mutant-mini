@@ -7,8 +7,10 @@ class ReactiveComponent extends Component {
     this.deps = deps
 
     this.objChanged = false
+  }
 
-    this.element = render(obj)
+  render() {
+    return this.render(this.obj)
   }
 
   enter() {
@@ -34,7 +36,6 @@ class ReactiveComponent extends Component {
 
   objChangeHandler() => {
     this.objChanged = false
-    if (!this.element) return
     const node = getNode(this.element)
   }
 }

@@ -1,60 +1,57 @@
 
-class NodeCollection extends Collection {
-  constructor(parent, children) {
-    super(children)
-    this.parent = parent
-    appendNodes(this.parent, children)
-  }
+function NodeCollection(parent, children) {
+  Collection.call(this, children)
+  this.parent = parent
+  appendNodes(parent, children)
+}
+extends__(NodeCollection, Collection)
 
-  enter() {
-    this.items.forEach(item => {
-      getVirtualNode(item).enter()
-    })
-  }
+NodeCollection.prototype.enter = function() {
+  arrayForEach__(this.items, function(item) {
+    item.enter()
+  })
+}
 
-  exit() {
-    this.items.forEach(item => {
-      getVirtualNode(item).exit()
-    })
-  }
+NodeCollection.prototype.exit = function() {
+  arrayForEach__(this.items, function(item) {
+    item.exit()
+  })
+}
 
-  // override Collection methods
+// override Collection methods
 
-  set(items) {
-    emptyNodes(this.parent)
-    appendNodes(this.parent, items)
-    super.set(items)
-  }
+NodeCollection.prototype.set = function(items) {
+  emptyNodes(this.parent)
+  appendNodes(this.parent, items)
+  NodeCollection.base.set.call(this, items)
+}
 
-  insert(item) {
-    insertNode(this.parent, item)
-    super.insert(item)
-  }
+NodeCollection.prototype.insert = function(item) {
+  insertNode(this.parent, item)
+  NodeCollection.base.insert.call(this, item)
+}
 
-  append(item) {
-    appendNode(this.parent, item)
-    super.append(item)
-  }
+NodeCollection.prototype.append = function(item) {
+  appendNode(this.parent, item)
+  NodeCollection.base.append.call(this, item)
+}
 
-  insertBefore(item, beforeId) {
-    insertNodeBefore(this.parent, item, this.get(beforeId))
-    super.insertBefore(item, beforeId)
-  }
+NodeCollection.prototype.insertBefore = function(item, beforeId) {
+  insertNodeBefore(this.parent, item, this.get(beforeId))
+  NodeCollection.base.insertBefore.call(this, item, beforeId)
+}
 
-  move(id, beforeId) {
-    insertNodeBefore(this.parent, this.get(id), this.get(beforeId))
-    super.move(id, beforeId)
-  }
+NodeCollection.prototype.move = function(id, beforeId) {
+  insertNodeBefore(this.parent, this.get(id), this.get(beforeId))
+  NodeCollection.base.move.call(this, id, beforeId)
+}
 
-  remove(id) {
-    removeNode(this.parent, this.get(id))
-    super.remove(id)
-  }
+NodeCollection.prototype.remove = function(id) {
+  removeNode(this.parent, this.get(id))
+  NodeCollection.base.remove.call(this, id)
+}
 
-  empty() {
-    emptyNodes(this.parent)
-    super.empty()
-  }
-
-  // helpers
+NodeCollection.prototype.empty = function() {
+  emptyNodes(this.parent)
+  NodeCollection.base.empty.call(this)
 }

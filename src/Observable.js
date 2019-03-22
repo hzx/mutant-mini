@@ -1,21 +1,19 @@
 
-class Observable {
-  constructor() {
-    this.handlers_ = {}
-  }
+function Observable() {
+  this.handlers_ = {}
+}
 
-  subscribe(handler) {
-    if (!handler.hash) handler.hash = Hasher.generate()
-    this.handlers_[handler.hash] = handler
-  }
+Observable.prototype.subscribe = function(handler) {
+  if (!handler.hash) handler.hash = Hasher.generate()
+  this.handlers_[handler.hash] = handler
+}
 
-  unsubscribe(handler) {
-    if (handler.hash) delete this.handlers_[handler.hash]
-  }
+Observable.prototype.unsubscribe = function(handler) {
+  if (handler.hash) delete this.handlers_[handler.hash]
+}
 
-  notify(e) {
-    for (let hash in this.handlers_) {
-      this.handlers_[hash](e)
-    }
+Observable.prototype.notify = function(e) {
+  for (var hash in this.handlers_) {
+    this.handlers_[hash](e)
   }
 }

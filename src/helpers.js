@@ -8,6 +8,7 @@ function getNode(vnode) {
     case NODE_TYPE_COMPONENT:
       return vnode.element.node
     default:
+      console.error('error there')
       throw 'Unknown virtual node type'
   }
 }
@@ -18,43 +19,83 @@ function getVirtualNode(vnode) {
   else return vnode
 }
 
+function getVirtualNodeId(vnode) {
+  return getVirtualNode(vnode).id
+}
+
 function getObjectValue(obj, dep) {
   if (typeof dep === 'string') {
     return obj[dep]
   } else { // must be array
-    let ovalue = obj
-    dep.forEach(d => {
+    var ovalue = obj
+    arrayForEach__(dep, function(d) {
       ovalue = ovalue[d]
     })
     return ovalue
   }
 }
 
+function setObjectField(obj, name, value) {
+  var field = obj[name]
+  switch (value.observableType) {
+    case OBSERVABLE_TYPE_OBJECT:
+      field.update(value)
+      break
+    case OBSERVABLE_TYPE_VALUE:
+      field.set(value.get())
+      break
+    case OBSERVABLE_TYPE_COLLECTION:
+      field.set(value.getItems())
+      break
+    default:
+      throw `setObjectField name=${name} unknown value observableType=${value.observableType}`
+  }
+}
+
 function appendNodes(parent, vnodes) {
-  const pnode = getNode(parent)
-  vnodes.forEach(vnode => {
+  var pnode = getNode(parent)
+  arrayForEach__(vnodes, function(vnode) {
+    vnode.exit()
     pnode.appendChild(getNode(vnode))
+    vnode.setParent(parent)
+    if (parent.isEnter_) vnode.enter()
   })
 }
 
 function insertNode(parent, vnode) {
-  const pnode = getNode(parent)
+  var pnode = getNode(parent)
+  vnode.exit()
   pnode.insertBefore(getNode(vnode), pnode.firstChild)
+  vnode.setParent(parent)
+  if (parent.isEnter_) vnode.enter()
 }
 
 function appendNode(parent, vnode) {
+  vnode.exit()
   getNode(parent).appendChild(getNode(vnode))
+  vnode.setParent(parent)
+  if (parent.isEnter_) vnode.enter()
 }
 
 function insertNodeBefore(parent, vnode, before) {
+  vnode.exit()
   getNode(parent).insertBefore(getNode(vnode), getNode(before))
+  vnode.setParent(parent)
+  if (parent.isEnter_) vnode.enter()
 }
 
 function removeNode(parent, vnode) {
+  vnode.exit()
+  vnode.setParent(null)
   getNode(parent).removeChild(getNode(vnode))
 }
 
 function emptyNodes(parent) {
-  const pnode = getNode(parent)
+  parent.children.forEach(function(child) {
+    child.exit()
+    child.setParent(null)
+  })
+
+  var pnode = getNode(parent)
   while (pnode.firstChild) pnode.removeChild(pnode.firstChild)
 }

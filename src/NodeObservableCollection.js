@@ -1,66 +1,76 @@
 
-class NodeObservableCollection extends NodeCollection {
-  constructor(parent, collection, render) {
-    super([])
-    this.parent = parent
-    this.collection = collection
-    this.render = render
-    this.renderCollection()
-  }
+function NodeObservableCollection(parent, collection, render) {
+  NodeCollection.call(this, parent, [])
+  this.collection = collection
+  this.renderItem = render
 
-  renderCollection() {
-    this.set(this.collection.map(item => this.render(item)).filter(item => item))
-  }
+  this.onSet = this.onSet.bind(this)
+  this.onInsert = this.onInsert.bind(this)
+  this.onAppend = this.onAppend.bind(this)
+  this.onInsertBefore = this.onInsertBefore.bind(this)
+  this.onMove = this.onMove.bind(this)
+  this.onRemove = this.onRemove.bind(this)
+  this.onEmpty= this.onEmpty.bind(this)
+}
+extends__(NodeObservableCollection, NodeCollection)
 
-  enter() {
-    super.enter()
+NodeObservableCollection.prototype.render = function() {
+  var items = arrayFilter__(this.collection.map(this.renderItem),
+    function(item) { return item })
+  this.set(items)
+}
 
-    this.collection.oSet.subscribe(this.onSet)
-    this.collection.oInsert.subscribe(this.onInsert)
-    this.collection.oAppend.subscribe(this.onAppend)
-    this.collection.oInsertBefore.subscribe(this.onInsertBefore)
-    this.collection.oMove.subscribe(this.onMove)
-    this.collection.oRemove.subscribe(this.onRemove)
-    this.collection.oEmpty.subscribe(this.onEmpty)
-  }
+NodeObservableCollection.prototype.enter = function() {
+  NodeObservableCollection.base.enter.call(this)
 
-  exit() {
-    super.exit()
+  this.collection.oSet.subscribe(this.onSet)
+  this.collection.oInsert.subscribe(this.onInsert)
+  this.collection.oAppend.subscribe(this.onAppend)
+  this.collection.oInsertBefore.subscribe(this.onInsertBefore)
+  this.collection.oMove.subscribe(this.onMove)
+  this.collection.oRemove.subscribe(this.onRemove)
+  this.collection.oEmpty.subscribe(this.onEmpty)
+}
 
-    this.collection.oSet.unsubscribe(this.onSet)
-    this.collection.oInsert.unsubscribe(this.onInsert)
-    this.collection.oAppend.unsubscribe(this.onAppend)
-    this.collection.oInsertBefore.unsubscribe(this.onInsertBefore)
-    this.collection.oMove.unsubscribe(this.onMove)
-    this.collection.oRemove.unsubscribe(this.onRemove)
-    this.collection.oEmpty.unsubscribe(this.onEmpty)
-  }
+NodeObservableCollection.prototype.exit = function() {
+  NodeObservableCollection.base.exit.call(this)
 
-  onSet() => {
-    super.set(items)
-  }
+  this.collection.oSet.unsubscribe(this.onSet)
+  this.collection.oInsert.unsubscribe(this.onInsert)
+  this.collection.oAppend.unsubscribe(this.onAppend)
+  this.collection.oInsertBefore.unsubscribe(this.onInsertBefore)
+  this.collection.oMove.unsubscribe(this.onMove)
+  this.collection.oRemove.unsubscribe(this.onRemove)
+  this.collection.oEmpty.unsubscribe(this.onEmpty)
+}
 
-  onInsert(item) => {
-    super.insert(item)
-  }
+NodeObservableCollection.prototype.onSet = function() {
+  this.render()
+}
 
-  onAppend(item) => {
-    super.append(item)
-  }
+NodeObservableCollection.prototype.onInsert = function(item) {
+  var vnode = this.renderItem(item)
+  if (vnode) this.insert(vnode)
+}
 
-  onInsertBefore({item, beforeId}) => {
-    super.insertBefore(item, beforeId)
-  }
+NodeObservableCollection.prototype.onAppend = function(item) {
+  var vnode = this.renderItem(item)
+  if (vnode) this.append(vnode)
+}
 
-  onMove({id, beforeId}) => {
-    super.move(id, beforeId)
-  }
+NodeObservableCollection.prototype.onInsertBefore = function({item, beforeId}) {
+  var vnode = this.renderItem(item)
+  if (vnode) this.insertBefore(vnode, beforeId)
+}
 
-  onRemove(id) => {
-    super.remove(id)
-  }
+NodeObservableCollection.prototype.onMove = function({id, beforeId}) {
+  this.move(id, beforeId)
+}
 
-  onEmpty() => {
-    super.empty()
-  }
+NodeObservableCollection.prototype.onRemove = function(id) {
+  this.remove(id)
+}
+
+NodeObservableCollection.prototype.onEmpty = function() {
+  this.empty()
 }

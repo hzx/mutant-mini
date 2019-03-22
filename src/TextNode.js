@@ -1,13 +1,21 @@
 
-class TextNode {
-  constructor(value) {
-    this.nodeType = NODE_TYPE_TEXT_NODE
-    this.node = document.createTextNode(value)
-  }
+function TextNode(value) {
+  this.id = Hasher.generate()
+  this.nodeType = NODE_TYPE_TEXT_NODE
+  this.node = document.createTextNode(value)
+  this.parent = null
+}
 
-  enter() {
-  }
+TextNode.prototype.enter = function() {
+}
 
-  exit() {
-  }
+TextNode.prototype.exit = function() {
+}
+
+TextNode.prototype.get = function() {
+  return this.node.textContent
+}
+
+TextNode.prototype.setParent = function(parent) {
+  this.parent = parent
 }

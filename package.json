@@ -1,0 +1,12 @@
+{
+  "name": "mutant-mini",
+  "version": "0.0.1",
+  "description": "Simple web framework.",
+  "author": "Dmitry Dementev <dem@oldschooldev.com>",
+  "main": "mutant-mini.js",
+  "scripts": {
+    "build": "./build.sh"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}

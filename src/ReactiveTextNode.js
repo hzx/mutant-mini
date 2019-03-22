@@ -1,21 +1,27 @@
 
-class ReactiveTextNode {
-  constructor(ovalue) {
-    this.node = document.createTextNode(ovalue.get())
-    this.nodeType = NODE_TYPE_TEXT_NODE
-    this.value = ovalue
-  }
+function ReactiveTextNode(ovalue) {
+  this.id = Hasher.generate()
+  this.nodeType = NODE_TYPE_TEXT_NODE
+  this.node = document.createTextNode(ovalue.get())
+  this.parent = null
+  this.value = ovalue
 
-  enter() {
-    this.value.subscribe(this.onValueChange)
-  }
+  this.onValueChange = this.onValueChange.bind(this)
+}
 
-  exit() {
-    this.value.unsubscribe(this.onValueChange)
-  }
+ReactiveTextNode.prototype.enter = function() {
+  this.value.subscribe(this.onValueChange)
+}
 
-  onValueChange() => {
-    // node.innerText for IE
-    this.node.textContent = this.ovalue.get()
-  }
+ReactiveTextNode.prototype.exit = function() {
+  this.value.unsubscribe(this.onValueChange)
+}
+
+ReactiveTextNode.prototype.setParent = function(parent) {
+  this.parent = parent
+}
+
+ReactiveTextNode.prototype.onValueChange = function() {
+  // node.innerText for IE
+  this.node.textContent = this.ovalue.get()
 }

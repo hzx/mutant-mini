@@ -1,6 +1,6 @@
 
 function extends__(child, base) {
-  var Tmp = new Function()
+  const Tmp = new Function()
   Tmp.prototype = base.prototype
   child.prototype = new Tmp()
   child.prototype.constructor = child
@@ -8,21 +8,21 @@ function extends__(child, base) {
 }
 
 function arrayMap__(arr, func) {
-  var a = new Array(arr.length)
-  for (var i = 0; i < arr.length; ++i) {
+  const a = new Array(arr.length)
+  for (let i = 0; i < arr.length; ++i) {
     a[i] = func(arr[i], i, arr)
   }
   return a
 }
 
 function arrayForEach__(arr, func) {
-  for (var i = 0; i < arr.length; ++i) {
+  for (let i = 0; i < arr.length; ++i) {
     func(arr[i], i, arr)
   }
 }
 
 function arrayFilter__(arr, func) {
-  var r = []
+  const r = []
   arrayForEach__(arr, function(item, i) {
     if (func(item, i, arr)) r.push(item)
   })
@@ -30,7 +30,7 @@ function arrayFilter__(arr, func) {
 }
 
 function arrayReduce__(arr, func, initialValue) {
-  var accum, first
+  let accum, first
   if (initialValue === undefined) {
     accum = arr.length > 0 ? arr[0] : null
     first = 1
@@ -38,7 +38,7 @@ function arrayReduce__(arr, func, initialValue) {
     accum = initialValue
     first = 0
   }
-  for (var i = first; i < arr.length; ++i) {
+  for (let i = first; i < arr.length; ++i) {
     accum = func(accum, arr[i])
   }
   return accum

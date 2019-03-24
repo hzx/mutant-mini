@@ -1,18 +1,21 @@
 
 export default {
-  extends: extends__,
   toObservable,
   toObservableValue,
   toObservableObject,
   toObservableCollection,
   toObservablesArray,
+  ObservableValue,
+  ObservableObject,
+  ObservableCollection,
   e: element,
   div,
   span,
-  c: component,
+  component,
   rc: reactiveComponent,
   rmap: reactiveElementMap,
-  t: text, rt: rtext,
+  t: textNode,
+  rt: reactiveTextNode,
   Component,
   render
 }

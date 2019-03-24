@@ -1,17 +1,18 @@
 
-function ObservableValue(value) {
-  Observable.call(this)
-  this.observableType = OBSERVABLE_TYPE_VALUE
-  this.value = value
-}
-extends__(ObservableValue, Observable)
+class ObservableValue extends Observable {
+  constructor(value) {
+    super()
+    this.observableType = OBSERVABLE_TYPE_VALUE
+    this.value = value
+  }
 
-ObservableValue.prototype.set = function(value) {
-  var old = this.value
-  this.value = value
-  this.notify({value, old})
-}
+  set(value) {
+    const old = this.value
+    this.value = value
+    this.notify({value, old})
+  }
 
-ObservableValue.prototype.get = function() {
-  return this.value
+  get() {
+    return this.value
+  }
 }

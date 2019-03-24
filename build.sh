@@ -1,6 +1,5 @@
 cd ./src
 cat \
-  core.js \
   common.js \
   Hasher.js \
   Collection.js \

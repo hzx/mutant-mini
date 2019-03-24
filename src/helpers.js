@@ -8,8 +8,7 @@ function getNode(vnode) {
     case NODE_TYPE_COMPONENT:
       return vnode.element.node
     default:
-      console.error('error there')
-      throw 'Unknown virtual node type'
+      throw new Error('Unknown virtual node type')
   }
 }
 
@@ -27,8 +26,8 @@ function getObjectValue(obj, dep) {
   if (typeof dep === 'string') {
     return obj[dep]
   } else { // must be array
-    var ovalue = obj
-    arrayForEach__(dep, function(d) {
+    let ovalue = obj
+    dep.forEach(d => {
       ovalue = ovalue[d]
     })
     return ovalue
@@ -36,7 +35,7 @@ function getObjectValue(obj, dep) {
 }
 
 function setObjectField(obj, name, value) {
-  var field = obj[name]
+  const field = obj[name]
   switch (value.observableType) {
     case OBSERVABLE_TYPE_OBJECT:
       field.update(value)
@@ -48,13 +47,13 @@ function setObjectField(obj, name, value) {
       field.set(value.getItems())
       break
     default:
-      throw `setObjectField name=${name} unknown value observableType=${value.observableType}`
+      throw new Error(`setObjectField name=${name} unknown value observableType=${value.observableType}`)
   }
 }
 
 function appendNodes(parent, vnodes) {
-  var pnode = getNode(parent)
-  arrayForEach__(vnodes, function(vnode) {
+  const pnode = getNode(parent)
+  vnodes.forEach(vnode => {
     vnode.exit()
     pnode.appendChild(getNode(vnode))
     vnode.setParent(parent)
@@ -63,7 +62,7 @@ function appendNodes(parent, vnodes) {
 }
 
 function insertNode(parent, vnode) {
-  var pnode = getNode(parent)
+  const pnode = getNode(parent)
   vnode.exit()
   pnode.insertBefore(getNode(vnode), pnode.firstChild)
   vnode.setParent(parent)
@@ -91,11 +90,11 @@ function removeNode(parent, vnode) {
 }
 
 function emptyNodes(parent) {
-  parent.children.forEach(function(child) {
+  parent.children.forEach(child => {
     child.exit()
     child.setParent(null)
   })
 
-  var pnode = getNode(parent)
+  const pnode = getNode(parent)
   while (pnode.firstChild) pnode.removeChild(pnode.firstChild)
 }

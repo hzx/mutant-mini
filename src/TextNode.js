@@ -1,21 +1,27 @@
 
-function TextNode(value) {
-  this.id = Hasher.generate()
-  this.nodeType = NODE_TYPE_TEXT_NODE
-  this.node = document.createTextNode(value)
-  this.parent = null
-}
+class TextNode {
+  constructor(value) {
+    this.id = Hasher.generate()
+    this.nodeType = NODE_TYPE_TEXT_NODE
+    this.node = document.createTextNode(value)
+    this.parent = null
+  }
 
-TextNode.prototype.enter = function() {
-}
+  enter() {
+  }
 
-TextNode.prototype.exit = function() {
-}
+  exit() {
+  }
 
-TextNode.prototype.get = function() {
-  return this.node.textContent
-}
+  get() {
+    return this.node.textContent
+  }
 
-TextNode.prototype.setParent = function(parent) {
-  this.parent = parent
+  setParent(parent) {
+    this.parent = parent
+  }
+
+  getNode() {
+    return this.node
+  }
 }

@@ -54,18 +54,39 @@ class CommonElement {
     this.node.removeEventListener(name, handler, false)
   }
 
-  setAttribute(name, value) {
-    this.node.setAttribute(name, value)
-  }
-
   setAttributes() {
     for (let i = 0; i < this.attrs.length; i += 2) {
       this.setAttribute(this.attrs[i], this.attrs[i + 1])
     }
   }
 
+  hasAttribute(name) {
+    return this.node.hasAttribute(name)
+  }
+
+  setAttribute(name, value) {
+    switch (name) {
+      case 'checked':
+        if (value) {
+          console.log('setAttribute checked')
+          this.node.setAttribute(name, '')
+        } else {
+          console.log('removeAttribute checked')
+          this.node.removeAttribute('checked')
+        }
+        break
+      default:
+        this.node.setAttribute(name, value)
+        break
+    }
+  }
+
   getAttribute(name) {
     return this.node.getAttribute(name)
+  }
+
+  removeAttribute(name) {
+    this.node.removeAttribute(name)
   }
 
   addClass(name) {

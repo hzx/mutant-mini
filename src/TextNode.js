@@ -24,4 +24,8 @@ class TextNode {
   getNode() {
     return this.node
   }
+
+  getId() {
+    return this.id
+  }
 }

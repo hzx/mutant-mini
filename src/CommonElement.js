@@ -35,6 +35,10 @@ class CommonElement {
     return this.node
   }
 
+  getId() {
+    return this.id
+  }
+
   remove() {
     if (this.parent) {
       getNode(this.parent).removeChild(this.node)

@@ -37,4 +37,8 @@ class Component {
   getNode() {
     return this.element.getNode()
   }
+
+  getId() {
+    return this.element.getId()
+  }
 }

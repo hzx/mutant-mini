@@ -7,6 +7,7 @@ class ReactiveTextNode {
     this.parent = null
     this.value = ovalue
     this.render = render
+    this.onValueChange()
   }
 
   enter() {
@@ -26,6 +27,6 @@ class ReactiveTextNode {
   }
 
   onValueChange = () => {
-    this.node.textContent = this.render ? this.render(this.ovalue.get()) : this.ovalue.get()
+    this.node.textContent = this.render ? this.render(this.value.get()) : this.value.get()
   }
 }

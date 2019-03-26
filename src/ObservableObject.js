@@ -15,15 +15,23 @@ class ObservableObject extends Observable {
     return this.obj
   }
 
+  toString() {
+    return 'ObservableObject'
+  }
+
   has(name) {
     return name in this.obj
   }
 
-  getValue(name) {
+  getProperty(name) {
     return this.has(name) ? this.obj[name] : null
   }
 
-  getEmbeddedValue(names) {
+  getValue(name, defaultValue) {
+    return this.has(name) ? this.obj[name].get() : (defaultValue || null)
+  }
+
+  getEmbeddedProperty(names) {
     let current = this.obj
     const last = names.length - 1
     for (let i = 0; i < last; ++i) {

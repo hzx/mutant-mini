@@ -9,6 +9,10 @@ class Collection {
     return index === -1 ? null : this.items[index]
   }
 
+  toString() {
+    return this.items.map(item => item ? item.toString() : item).join(', ')
+  }
+
   getNext(id) {
     const index = this.items.findIndex(item => item.id === id)
     const nextIndex = index + 1
@@ -41,6 +45,10 @@ class Collection {
 
   filter(func) {
     return this.items.filter(func)
+  }
+
+  join(delimiter) {
+    return this.items.join(delimiter)
   }
 
   insert(item) {

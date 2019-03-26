@@ -5,6 +5,7 @@ export default {
   toObservableObject,
   toObservableCollection,
   toObservablesArray,
+  Observable,
   ObservableValue,
   ObservableObject,
   ObservableCollection,

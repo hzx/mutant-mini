@@ -15,6 +15,10 @@ class ObservableObject extends Observable {
     return this.obj
   }
 
+  getId() {
+    return this.obj.id
+  }
+
   toString() {
     return 'ObservableObject'
   }

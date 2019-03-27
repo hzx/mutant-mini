@@ -5,7 +5,7 @@ class Collection {
   }
 
   get(id) {
-    const index = this.items.findIndex(item => item.id === id)
+    const index = this.items.findIndex(item => (item.getId ? item.getId() : item.id) === id)
     return index === -1 ? null : this.items[index]
   }
 
@@ -14,7 +14,7 @@ class Collection {
   }
 
   getNext(id) {
-    const index = this.items.findIndex(item => item.id === id)
+    const index = this.items.findIndex(item => (item.getId ? item.getId() : item.id) === id)
     const nextIndex = index + 1
     return nextIndex >= this.items.length ? null : this.items[nextIndex]
   }

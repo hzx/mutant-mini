@@ -5,7 +5,7 @@ class Collection {
   }
 
   get(id) {
-    const index = this.items.findIndex(item => (item.getId ? item.getId() : item.id) === id)
+    const index = Collection.getIndex(this.items, id)
     return index === -1 ? null : this.items[index]
   }
 
@@ -14,7 +14,7 @@ class Collection {
   }
 
   getNext(id) {
-    const index = this.items.findIndex(item => (item.getId ? item.getId() : item.id) === id)
+    const index = Collection.getIndex(this.items, id)
     const nextIndex = index + 1
     return nextIndex >= this.items.length ? null : this.items[nextIndex]
   }
@@ -67,7 +67,7 @@ class Collection {
   }
 
   insertBefore(item, beforeId) {
-    const beforeIndex = this.items.findIndex(item => item.id === beforeId)
+    const beforeIndex = Collection.getIndex(this.items, beforeId)
     if (beforeIndex === -1) return
 
     const items = new Array(this.items.length + 1)
@@ -86,8 +86,8 @@ class Collection {
   }
 
   move(id, beforeId) {
-    const index = this.items.findIndex(item => item.id === id)
-    const beforeIndex = this.items.findIndex(item => item.id === beforeId)
+    const index = Collection.getIndex(this.items, id)
+    const beforeIndex = Collection.getIndex(this.items, beforeId)
     if (index === -1 || beforeIndex === -1) {
       throw new Error('Collection.move: id or beforeId not found')
     }
@@ -113,7 +113,7 @@ class Collection {
   }
 
   remove(id) {
-    const index = this.items.findIndex(item => item.id === id)
+    const index = Collection.getIndex(this.items, id)
     if (index === -1) return
     this.items = this.items.splice(index, 1)
   }
@@ -124,5 +124,9 @@ class Collection {
 
   isEmpty() {
     return this.items.length === 0
+  }
+
+  static getIndex(items, id) {
+    return items.findIndex(item => (item.getId ? item.getId() : item.id) === id)
   }
 }

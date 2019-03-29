@@ -68,10 +68,8 @@ class CommonElement {
     switch (name) {
       case 'checked':
         if (value) {
-          console.log('setAttribute checked')
           this.node.setAttribute(name, '')
         } else {
-          console.log('removeAttribute checked')
           this.node.removeAttribute('checked')
         }
         break

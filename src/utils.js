@@ -78,6 +78,37 @@ function toObservablesArray(arr) {
   return arr.map(item => toObservable(item))
 }
 
+function cleanObservable(obj) {
+  if (!obj.observableType) return obj
+
+  switch (obj.observableType) {
+    case OBSERVABLE_TYPE_OBJECT:
+      break
+    case OBSERVABLE_TYPE_VALUE:
+      break
+    case OBSERVABLE_TYPE_COLLECTION:
+      break
+    default:
+      throw new Error(`mutant.cleanObservablei unknown obj.observableType: ${obj.observableType}`)
+  }
+}
+
+function cleanObservableObject(obj) {
+  const cobj = {}
+  for (let name in obj.obj) {
+    cobj[name] = cleanObservable(obj[name])
+  }
+  return cobj
+}
+
+function cleanObservableValue(value) {
+  return value.value
+}
+
+function cleanObservableCollection(coll) {
+  return coll.map(item => cleanObservable(item))
+}
+
 function div(attrs, events, childs) {
   return element('div', attrs, events, childs)
 }

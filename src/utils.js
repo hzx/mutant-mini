@@ -56,12 +56,17 @@ function toObservable(obj) {
 function toObservableObject(obj) {
   const robj = {}
   for (let name in obj) {
+    // skip id, must be string type
     if (name !== 'id') {
       robj[name] = toObservable(obj[name])
     }
   }
-  // skip id, must be string type
-  robj.id = obj.id
+
+  if (!obj.id) {
+    robj.id = Hasher.generate()
+  } else {
+    robj.id = obj.id
+  }
 
   return new ObservableObject(robj)
 }
@@ -75,7 +80,11 @@ function toObservableCollection(arr) {
 }
 
 function toObservablesArray(arr) {
-  return arr.map(item => toObservable(item))
+  return arr.map(item => {
+    const oitem = toObservable(item)
+    
+    return oitem
+  })
 }
 
 function cleanObservable(obj) {

@@ -82,7 +82,7 @@ function toObservableCollection(arr) {
 function toObservablesArray(arr) {
   return arr.map(item => {
     const oitem = toObservable(item)
-    
+
     return oitem
   })
 }

@@ -13,6 +13,14 @@ class Collection {
     return this.items.map(item => item ? item.toString() : item).join(', ')
   }
 
+  getFirst() {
+    return this.items.length > 0 ? this.items[0] : null
+  }
+
+  getLast() {
+    return this.items.length > 0 ? this.items[this.items.length - 1] : null
+  }
+
   getNext(id) {
     const index = Collection.getIndex(this.items, id)
     const nextIndex = index + 1

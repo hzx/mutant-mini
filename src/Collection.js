@@ -4,6 +4,10 @@ class Collection {
     this.items = items
   }
 
+  getAt(index) {
+    return this.items[index]
+  }
+
   get(id) {
     const index = Collection.getIndex(this.items, id)
     return index === -1 ? null : this.items[index]

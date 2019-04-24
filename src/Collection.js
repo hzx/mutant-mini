@@ -8,6 +8,11 @@ class Collection {
     return this.items[index]
   }
 
+  has(id) {
+    const index = Collection.getIndex(this.items, id)
+    return index === -1 ? false : true
+  }
+
   get(id) {
     const index = Collection.getIndex(this.items, id)
     return index === -1 ? null : this.items[index]

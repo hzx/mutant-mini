@@ -7,7 +7,11 @@ class NodeObservableCollection extends NodeCollection {
   }
 
   render() {
-    const items = this.collection.map(this.renderItem).filter(item => item)
+    const items = this.collection.map(item => {
+      const ritem = this.renderItem(item)
+      ritem.id = item.getId()
+      return ritem
+    }).filter(item => item)
     this.set(items)
   }
 

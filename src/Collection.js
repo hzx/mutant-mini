@@ -85,7 +85,10 @@ class Collection {
 
   insertBefore(item, beforeId) {
     const beforeIndex = Collection.getIndex(this.items, beforeId)
-    if (beforeIndex === -1) return
+    if (beforeIndex === -1) {
+      this.append(item)
+      return
+    }
 
     const items = new Array(this.items.length + 1)
     let shift = 0
@@ -103,12 +106,26 @@ class Collection {
   }
 
   move(id, beforeId) {
+    if (id === beforeId || this.items.length <= 1) return
+
     const index = Collection.getIndex(this.items, id)
     const beforeIndex = Collection.getIndex(this.items, beforeId)
     if (index === -1 || beforeIndex === -1) {
       throw new Error('Collection.move: id or beforeId not found')
     }
 
+    // shift all elements from index + 1 to the left and
+    // make index element as last
+    if (beforeIndex === -1) {
+      const item = this.items[index]
+      for (let i = index + 1; i < this.items.length; ++i) {
+        this.items[i - 1] = this.items[i]
+      }
+      this.items[this.items.length - 1] = item
+      return
+    }
+
+    // move element
     const items = new Array(this.items.length)
     items[beforeIndex] = this.items[index]
     let shift = 0

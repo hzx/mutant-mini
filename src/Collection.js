@@ -10,7 +10,7 @@ class Collection {
 
   has(id) {
     const index = Collection.getIndex(this.items, id)
-    return index === -1 ? false : true
+    return index !== -1
   }
 
   get(id) {

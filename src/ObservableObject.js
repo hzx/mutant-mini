@@ -32,7 +32,8 @@ class ObservableObject extends Observable {
   }
 
   getValue(name, defaultValue) {
-    return this.has(name) ? this.obj[name].get() : (defaultValue || null)
+    if (defaultValue === undefined) defaultValue = null
+    return this.has(name) ? this.obj[name].get() : defaultValue
   }
 
   getEmbeddedProperty(names) {

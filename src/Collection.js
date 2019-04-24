@@ -110,8 +110,8 @@ class Collection {
 
     const index = Collection.getIndex(this.items, id)
     const beforeIndex = Collection.getIndex(this.items, beforeId)
-    if (index === -1 || beforeIndex === -1) {
-      throw new Error('Collection.move: id or beforeId not found')
+    if (index === -1) {
+      throw new Error('Collection.move: id not found')
     }
 
     // shift all elements from index + 1 to the left and

@@ -98,3 +98,11 @@ function emptyNodes(parent) {
   const pnode = getNode(parent)
   while (pnode.firstChild) pnode.removeChild(pnode.firstChild)
 }
+
+function setVirtualNodeId(vnode, id) {
+  if (vnode.nodeType === NODE_TYPE_COMPONENT) {
+    vnode.element.id = id
+  } else {
+    vnode.id = id
+  }
+}

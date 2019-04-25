@@ -9,7 +9,7 @@ class NodeObservableCollection extends NodeCollection {
   render() {
     const items = this.collection.map(item => {
       const ritem = this.renderItem(item)
-      ritem.id = item.getId()
+      setVirtualNodeId(ritem, item.getId())
       return ritem
     }).filter(item => item)
     this.set(items)
@@ -45,16 +45,19 @@ class NodeObservableCollection extends NodeCollection {
 
   onInsert = (item) => {
     const vnode = this.renderItem(item)
+    setVirtualNodeId(vnode, item.getId())
     if (vnode) this.insert(vnode)
   }
 
   onAppend = (item) => {
     const vnode = this.renderItem(item)
+    setVirtualNodeId(vnode, item.getId())
     if (vnode) this.append(vnode)
   }
 
   onInsertBefore = ({item, beforeId}) => {
     const vnode = this.renderItem(item)
+    setVirtualNodeId(vnode, item.getId())
     if (vnode) this.insertBefore(vnode, beforeId)
   }
 

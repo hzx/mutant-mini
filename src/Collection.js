@@ -109,41 +109,35 @@ class Collection {
     if (id === beforeId || this.items.length <= 1) return
 
     const index = Collection.getIndex(this.items, id)
-    const beforeIndex = Collection.getIndex(this.items, beforeId)
     if (index === -1) {
-      throw new Error('Collection.move: id not found')
+      throw new Error(`Collection.move: id="${id}" not found`)
     }
 
-    // shift all elements from index + 1 to the left and
-    // make index element as last
+    const beforeIndex = beforeId
+      ? Collection.getIndex(this.items, beforeId)
+      : this.items.length // after end
     if (beforeIndex === -1) {
-      const item = this.items[index]
-      for (let i = index + 1; i < this.items.length; ++i) {
-        this.items[i - 1] = this.items[i]
-      }
-      this.items[this.items.length - 1] = item
-      return
+      throw new Error(`Collection.move: beforeId="${beforeId}" not found`)
     }
 
-    // move element
-    const items = new Array(this.items.length)
-    items[beforeIndex] = this.items[index]
-    let shift = 0
+    if (index === beforeIndex || index === (beforeIndex - 1)) return
 
-    for (let i = 0; i < this.items.length; ++i) {
-      switch (i) {
-        case index: // skip
-          break
-        case beforeIndex:
-          shift = 1
-          // fall through
-        default:
-          items[i + shift] = this.items[i]
-          break
+    if (index < beforeIndex) {
+      const newIndex = beforeIndex - 1
+      // << [index+1; newIndex)
+      const backup = this.items[index]
+      for (let i = index; i < newIndex; ++i) {
+        this.items[i] = this.items[i + 1]
       }
+      this.items[newIndex] = backup
+    } else { // beforeIndex < index
+      // >> [beforeIndex; index)
+      const backup = this.items[index]
+      for (let i = index; i > beforeIndex; --i) {
+        this.items[i] = this.items[i - 1]
+      }
+      this.items[beforeIndex] = backup
     }
-
-    this.items = items
   }
 
   remove(id) {
@@ -161,6 +155,6 @@ class Collection {
   }
 
   static getIndex(items, id) {
-    return items.findIndex(item => (item.getId ? item.getId() : item.id) === id)
+    return items.findIndex((item, i, arr) => (item.getId ? item.getId() : item.id) === id)
   }
 }

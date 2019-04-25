@@ -37,12 +37,21 @@ class NodeCollection extends Collection {
   }
 
   insertBefore(item, beforeId) {
+    if (!beforeId) {
+      this.append(item)
+      return
+    }
+
     insertNodeBefore(this.parent, item, this.get(beforeId))
     super.insertBefore(item, beforeId)
   }
 
   move(id, beforeId) {
-    insertNodeBefore(this.parent, this.get(id), this.get(beforeId))
+    if (!beforeId) {
+      appendNode(this.parent, this.get(id))
+    } else {
+      insertNodeBefore(this.parent, this.get(id), this.get(beforeId))
+    }
     super.move(id, beforeId)
   }
 

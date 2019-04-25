@@ -89,6 +89,10 @@ class ObservableCollection extends Collection {
   }
 
   insertBefore(item, beforeId) {
+    if (!beforeId) {
+      this.append(item)
+      return
+    }
     super.insertBefore(item, beforeId)
     this.oInsertBefore.notify({item, beforeId})
   }

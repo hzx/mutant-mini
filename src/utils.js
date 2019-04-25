@@ -89,7 +89,7 @@ function cleanObservable(obj) {
 function cleanObservableObject(obj) {
   const cobj = {}
   for (let name in obj.obj) {
-    cobj[name] = cleanObservable(obj[name])
+    cobj[name] = cleanObservable(obj.obj[name])
   }
   return cobj
 }

@@ -55,7 +55,9 @@ class ObservableObject extends Observable {
   update(obj) {
     for (let name in obj) {
       if (!(name in this.obj)) {
-        this.obj[name] = obj[name]
+        let value = obj[name]
+        if (!value.observableType) value = toObservable(value)
+        this.obj[name] = value
       } else {
         setObjectField(this.obj, name, obj[name])
       }

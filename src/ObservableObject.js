@@ -6,8 +6,12 @@ class ObservableObject extends Observable {
     this.obj = obj
   }
 
-  // value can be ObservableObject | ObservableValue | ObservableCollection
+  // value can be ObservableObject | ObservableValue | ObservableCollection |
+  // primitive type
   set(name, value) {
+    if (isValueType(value)) {
+      value = toObservableValue(value)
+    }
     this.obj[name] = value
   }
 

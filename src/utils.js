@@ -29,22 +29,6 @@ function reactiveTextNode(value, render) {
   return new ReactiveTextNode(value, render)
 }
 
-function isValueType(obj) {
-  switch (typeof obj) {
-    case 'string':
-    case 'number':
-    case 'boolean':
-    case 'function':
-      return true
-    default:
-      return false
-  }
-}
-
-function isArrayLike(obj) {
-  return obj && obj.hasOwnProperty('length')
-}
-
 function toObservable(obj) {
   if (obj === null || obj === undefined || isValueType(obj)) {
     return toObservableValue(obj)

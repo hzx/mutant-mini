@@ -47,7 +47,11 @@ function setObjectField(obj, name, value) {
       field.set(value.getItems())
       break
     default:
-      throw new Error(`setObjectField name=${name} unknown value observableType=${value.observableType}`)
+      if (isValueType(value)) {
+        field.set(value)
+      } else {
+        throw new Error(`setObjectField name=${name} unknown value observableType=${value.observableType}`)
+      }
   }
 }
 
@@ -105,4 +109,20 @@ function setVirtualNodeId(vnode, id) {
   } else {
     vnode.id = id
   }
+}
+
+function isValueType(obj) {
+  switch (typeof obj) {
+    case 'string':
+    case 'number':
+    case 'boolean':
+    case 'function':
+      return true
+    default:
+      return false
+  }
+}
+
+function isArrayLike(obj) {
+  return obj && obj.hasOwnProperty('length')
 }

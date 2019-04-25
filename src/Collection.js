@@ -84,11 +84,13 @@ class Collection {
   }
 
   insertBefore(item, beforeId) {
-    const beforeIndex = Collection.getIndex(this.items, beforeId)
-    if (beforeIndex === -1) {
+    if (!beforeId) {
       this.append(item)
       return
     }
+
+    const beforeIndex = Collection.getIndex(this.items, beforeId)
+    if (beforeIndex === -1) throw new Error(`Collection.insertBefore beforeId="${beforeId}" not found`)
 
     const items = new Array(this.items.length + 1)
     let shift = 0
@@ -143,7 +145,7 @@ class Collection {
   remove(id) {
     const index = Collection.getIndex(this.items, id)
     if (index === -1) return
-    this.items = this.items.splice(index, 1)
+    this.items.splice(index, 1)
   }
 
   empty() {

@@ -76,11 +76,11 @@ function cleanObservable(obj) {
 
   switch (obj.observableType) {
     case OBSERVABLE_TYPE_OBJECT:
-      break
+      return cleanObservableObject(obj)
     case OBSERVABLE_TYPE_VALUE:
-      break
+      return cleanObservableValue(obj)
     case OBSERVABLE_TYPE_COLLECTION:
-      break
+      return cleanObservableCollection(obj)
     default:
       throw new Error(`mutant.cleanObservablei unknown obj.observableType: ${obj.observableType}`)
   }

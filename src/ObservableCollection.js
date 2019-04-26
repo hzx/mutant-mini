@@ -52,4 +52,8 @@ class ObservableCollection extends Collection {
     super.empty()
     this.oEmpty.notify()
   }
+
+  notifyItemUpdate(item) {
+    this.oItemUpdate.notify(item)
+  }
 }

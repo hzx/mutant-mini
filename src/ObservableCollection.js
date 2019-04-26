@@ -11,67 +11,8 @@ class ObservableCollection extends Collection {
     this.oMove = new Observable()
     this.oRemove = new Observable()
     this.oEmpty = new Observable()
+    this.oItemUpdate = new Observable()
   }
-
-  // events
-
-  subscribeSet(handler) {
-    this.oSet.subscribe(handler)
-  }
-
-  unsubscribeSet(handler) {
-    this.oSet.unsubscribe(handler)
-  }
-
-  subscribeInsert(handler) {
-    this.oInsert.subscribe(handler)
-  }
-
-  unsubscribeInsert(handler) {
-    this.oInsert.unsubscribe(handler)
-  }
-
-  subscribeAppend(handler) {
-    this.oAppend.subscribe(handler)
-  }
-
-  unsubscribeAppend(handler) {
-    this.oAppend.unsubscribe(handler)
-  }
-
-  subscribeInsertBefore(handler) {
-    this.oInsertBefore.subscribe(handler)
-  }
-
-  unsubscribeInsertBefoke(handler) {
-    this.oInsertBefore.unsubscribe(handler)
-  }
-
-  subscribeMove(handler) {
-    this.oMove.subscribe(handler)
-  }
-
-  unsubscribeMove(handler) {
-    this.oMove.unsubscribe(handler)
-  }
-
-  subscribeRemove(handler) {
-    this.oRemove.subscribe(handler)
-  }
-
-  unsubscribeRemove(handler) {
-    this.oRemove.unsubscribe(handler)
-  }
-
-  subscribeEmpty(handler) {
-    this.oEmpty.subscribe(handler)
-  }
-
-  unsubscribeEmpty(handler) {
-    this.oEmpty.unsubscribe(handler)
-  }
-
-  // Collection methods wrap
 
   set(items) {
     super.set(items)

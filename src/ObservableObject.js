@@ -9,10 +9,11 @@ class ObservableObject extends Observable {
   // value can be ObservableObject | ObservableValue | ObservableCollection |
   // primitive type
   set(name, value) {
-    if (isValueType(value)) {
-      value = toObservableValue(value)
+    if (name in this.obj) {
+      setObjectField(this.obj, name, value)
+    } else {
+      this.obj[name] = value.observableType ? value : toObservable(value)
     }
-    this.obj[name] = value
   }
 
   get() {
@@ -54,13 +55,7 @@ class ObservableObject extends Observable {
 
   update(obj) {
     for (let name in obj) {
-      if (!(name in this.obj)) {
-        let value = obj[name]
-        if (!value.observableType) value = toObservable(value)
-        this.obj[name] = value
-      } else {
-        setObjectField(this.obj, name, obj[name])
-      }
+      this.set(name, obj[name])
     }
   }
 }

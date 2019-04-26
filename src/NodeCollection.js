@@ -56,8 +56,9 @@ class NodeCollection extends Collection {
   }
 
   remove(id) {
-    removeNode(this.parent, this.get(id))
+    const vnode = removeNode(this.parent, this.get(id))
     super.remove(id)
+    return vnode
   }
 
   empty() {

@@ -91,6 +91,7 @@ function removeNode(parent, vnode) {
   vnode.exit()
   vnode.setParent(null)
   getNode(parent).removeChild(getNode(vnode))
+  return vnode
 }
 
 function emptyNodes(parent) {

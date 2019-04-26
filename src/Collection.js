@@ -144,8 +144,11 @@ class Collection {
 
   remove(id) {
     const index = Collection.getIndex(this.items, id)
-    if (index === -1) return
+    if (index === -1) return null
+
+    const item = this.items[index]
     this.items.splice(index, 1)
+    return item
   }
 
   empty() {

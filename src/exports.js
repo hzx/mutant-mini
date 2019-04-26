@@ -21,6 +21,7 @@ export default {
   rmap: reactiveElementMap,
   t: textNode,
   rt: reactiveTextNode,
+  ReactiveFilter,
   Component,
   render
 }

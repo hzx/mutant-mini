@@ -7,10 +7,12 @@ class ObservableValue extends Observable {
   }
 
   set(value) {
-    if (this.value === value) return
+    if (this.value === value) return false
+
     const old = this.value
     this.value = value
     this.notify({value, old})
+    return true
   }
 
   get() {

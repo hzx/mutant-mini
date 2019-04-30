@@ -38,17 +38,15 @@ function setObjectField(obj, name, value) {
   const field = obj[name]
   switch (value.observableType) {
     case OBSERVABLE_TYPE_OBJECT:
-      field.update(value)
-      break
+      return field.update(value)
     case OBSERVABLE_TYPE_VALUE:
-      field.set(value.get())
-      break
+      return field.set(value.get())
     case OBSERVABLE_TYPE_COLLECTION:
       field.set(value.getItems())
-      break
+      return true
     default:
       if (isValueType(value)) {
-        field.set(value)
+        return field.set(value)
       } else {
         throw new Error(`setObjectField name=${name} unknown value observableType=${value.observableType}`)
       }

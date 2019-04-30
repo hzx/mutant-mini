@@ -7,6 +7,7 @@ cat \
   ObservableValue.js \
   ObservableObject.js \
   ObservableCollection.js \
+  ValueDecorator.js \
   helpers.js \
   CommonElement.js \
   Element.js \

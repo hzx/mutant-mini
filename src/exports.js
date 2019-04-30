@@ -13,6 +13,7 @@ export default {
   ObservableValue,
   ObservableObject,
   ObservableCollection,
+  ValueDecorator,
   e: element,
   div,
   span,
@@ -23,5 +24,6 @@ export default {
   rt: reactiveTextNode,
   ReactiveFilter,
   Component,
-  render
+  render,
+  decorate
 }

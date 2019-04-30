@@ -114,3 +114,7 @@ function render(vnode, parentNode) {
   parentNode.appendChild(getNode(vnode))
   vnode.enter()
 }
+
+function decorate(ovalue, getter, setter) {
+  return new ValueDecorator(ovalue, getter, setter)
+}

@@ -7,8 +7,8 @@ class NodeObservableCollection extends NodeCollection {
   }
 
   render() {
-    const items = this.collection.map(item => {
-      const ritem = this.renderItem(item)
+    const items = this.collection.map((item, i) => {
+      const ritem = this.renderItem(item, i)
       setVirtualNodeId(ritem, item.getId())
       return ritem
     }).filter(item => item)

@@ -68,6 +68,10 @@ class Collection {
     return this.items.join(delimiter)
   }
 
+  find(func) {
+    return this.items.find(func)
+  }
+
   insert(item) {
     const items = new Array(this.items.length + 1)
     items[0] = item

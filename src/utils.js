@@ -115,6 +115,15 @@ function render(vnode, parentNode) {
   vnode.enter()
 }
 
+function remove(vnode) {
+  vnode.exit()
+  const node = vnode.getNode()
+  const parent = node.parentNode
+  if (parent) {
+    parent.removeChild(node)
+  }
+}
+
 function decorate(ovalue, getter, setter) {
   return new ValueDecorator(ovalue, getter, setter)
 }

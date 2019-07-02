@@ -1,5 +1,6 @@
 
 export default {
+  Hasher,
   toObservable,
   toObservableValue,
   toObservableObject,
@@ -25,5 +26,6 @@ export default {
   ReactiveFilter,
   Component,
   render,
+  remove,
   decorate
 }

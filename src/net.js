@@ -15,6 +15,6 @@ function get(url, success, fail) {
   }
 
   request.open('GET', url, true)
-  request.setRequestHeader("X-Requested-With", "XMLHttpRequest")
+  request.setRequestHeader('X-Requested-With', 'XMLHttpRequest')
   request.send(null)
 }

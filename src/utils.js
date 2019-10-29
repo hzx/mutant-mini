@@ -133,7 +133,7 @@ function addJs(content) {
   node.type = 'text/javascript'
   node.text = content
 
-  const head = document.getElementsByTagName("head")[0]
+  const head = document.getElementsByTagName('head')[0]
   head.appendChild(node)
 
   return node
@@ -149,7 +149,7 @@ function addCss(content) {
     node.appendChild(document.createTextNode(content))
   }
 
-  const head = document.getElementsByTagName("head")[0]
+  const head = document.getElementsByTagName('head')[0]
   head.appendChild(node)
 
   return node

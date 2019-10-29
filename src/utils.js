@@ -127,3 +127,30 @@ function remove(vnode) {
 function decorate(ovalue, getter, setter) {
   return new ValueDecorator(ovalue, getter, setter)
 }
+
+function addJs(content) {
+  const node = document.createElement('script')
+  node.type = 'text/javascript'
+  node.text = content
+
+  const head = document.getElementsByTagName("head")[0]
+  head.appendChild(node)
+
+  return node
+}
+
+function addCss(content) {
+  const node = document.createElement('style')
+  node.type = 'text/css'
+
+  if (node.styleSheet) {
+    node.styleSheet.cssText = content
+  } else {
+    node.appendChild(document.createTextNode(content))
+  }
+
+  const head = document.getElementsByTagName("head")[0]
+  head.appendChild(node)
+
+  return node
+}

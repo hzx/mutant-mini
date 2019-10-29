@@ -28,5 +28,7 @@ export default {
   Component,
   render,
   remove,
-  decorate
+  decorate,
+  addJs,
+  addCss
 }

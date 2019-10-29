@@ -1,6 +1,7 @@
 
 export default {
   Hasher,
+  get,
   toObservable,
   toObservableValue,
   toObservableObject,

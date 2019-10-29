@@ -1,6 +1,7 @@
 cd ./src
 cat \
   common.js \
+  net.js \
   Hasher.js \
   Collection.js \
   Observable.js \

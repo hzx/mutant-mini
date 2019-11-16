@@ -15,7 +15,9 @@ class Observable {
 
   notify(e) {
     for (let hash in this.handlers_) {
-      this.handlers_[hash](e)
+      nextTick(() => {
+        this.handlers_[hash](e)
+      })
     }
   }
 }

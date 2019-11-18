@@ -63,12 +63,18 @@ function toObservableCollection(arr) {
   return new ObservableCollection(arr.map(item => toObservable(item)))
 }
 
-function toObservablesArray(arr) {
-  return arr.map(item => {
-    const oitem = toObservable(item)
-
-    return oitem
+function liteToObservableCollection(arr) {
+  return process(arr, (item) => toObservable(item)).then(items => {
+    return new ObservableCollection(items)
   })
+}
+
+function toObservablesArray(arr) {
+  return arr.map(item => toObservable(item))
+}
+
+function liteToObservablesArray(arr) {
+  return process(arr, (item) => toObservable(item))
 }
 
 function cleanObservable(obj) {

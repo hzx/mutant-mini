@@ -121,6 +121,15 @@ function render(vnode, parentNode) {
   vnode.enter()
 }
 
+function attach(vnode, parentNode, beforeNode) {
+  if (beforeNode) {
+    parentNode.insertBefore(getNode(vnode), beforeNode)
+  } else {
+    parentNode.appendChild(getNode(vnode))
+  }
+  vnode.enter()
+}
+
 function remove(vnode) {
   vnode.exit()
   const node = vnode.getNode()

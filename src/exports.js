@@ -29,6 +29,7 @@ export default {
   ReactiveFilter,
   Component,
   render,
+  attach,
   remove,
   decorate,
   addJs,

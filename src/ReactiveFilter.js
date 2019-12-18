@@ -33,6 +33,7 @@ class ReactiveFilter {
       group.collection.empty()
       group.element.children.empty()
 
+      // TODO(dem): add to array then set group collection
       this.collection.forEach(item => {
         if (group.filter(item)) {
           group.collection.append(item)

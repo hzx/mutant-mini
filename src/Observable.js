@@ -16,9 +16,7 @@ class Observable {
   notify(e) {
     for (let hash in this.handlers_) {
       const handler = this.handlers_[hash]
-      // nextTick(() => {
       handler(e)
-      // })
     }
   }
 }

@@ -5,6 +5,7 @@ cat \
   Hasher.js \
   Collection.js \
   Observable.js \
+  ObservableOnce.js \
   ObservableValue.js \
   ObservableObject.js \
   ObservableCollection.js \

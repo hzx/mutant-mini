@@ -14,6 +14,7 @@ export default {
   cleanObservableObject,
   cleanObservableCollection,
   Observable,
+  ObservableOnce,
   ObservableValue,
   ObservableObject,
   ObservableCollection,
@@ -33,5 +34,7 @@ export default {
   remove,
   decorate,
   addJs,
-  addCss
+  addCss,
+  nextTick,
+  process
 }

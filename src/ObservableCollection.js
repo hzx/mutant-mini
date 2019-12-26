@@ -4,6 +4,7 @@ class ObservableCollection extends Collection {
     super(items)
     this.observableType = OBSERVABLE_TYPE_COLLECTION
     // events
+    this.oBeforeSet = new Observable()
     this.oSet = new Observable()
     this.oInsert = new Observable()
     this.oAppend = new Observable()
@@ -15,6 +16,7 @@ class ObservableCollection extends Collection {
   }
 
   set(items) {
+    this.oBeforeSet.notify()
     super.set(items)
     this.oSet.notify()
   }

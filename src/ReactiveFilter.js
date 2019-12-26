@@ -1,9 +1,11 @@
 
 class ReactiveFilter {
   // groups - [{element, collection, filter, render}...]
-  constructor(collection, groups) {
+  constructor(collection, groups, processChildren, beforeSetChildren) {
     this.collection = collection
     this.groups = groups
+    this.processChildren = processChildren
+    this.beforeSetChildren = beforeSetChildren
   }
 
   enter() {
@@ -28,19 +30,21 @@ class ReactiveFilter {
     this.collection.oItemUpdate.unsubscribe(this.onItemUpdate)
   }
 
-  renderCollection() {
+  render() {
+    if (this.beforeSetChildren) this.beforeSetChildren()
+
     this.groups.forEach(group => {
       group.collection.empty()
       group.element.children.empty()
 
-      // TODO(dem): add to array then set group collection
-      this.collection.forEach(item => {
-        if (group.filter(item)) {
-          group.collection.append(item)
-          group.element.children.append(this.renderItem(item, group.render))
-        }
-      })
+      const items = this.collection.filter(group.filter)
+      const elements = items.map(item => this.renderItem(item, group.render))
+
+      group.collection.set(items)
+      group.element.children.setChildren(elements)
     })
+
+    if (this.processChildren) this.processChildren()
   }
 
   renderItem(item, render) {
@@ -50,7 +54,7 @@ class ReactiveFilter {
   }
 
   onSet = () => {
-    this.renderCollection()
+    this.render()
   }
 
   onInsert = (item) => {

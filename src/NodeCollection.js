@@ -20,10 +20,10 @@ class NodeCollection extends Collection {
 
   // override Collection methods
 
-  set(items) {
+  setChildren(items) {
     emptyNodes(this.parent)
-    appendNodes(this.parent, items)
     super.set(items)
+    setChildren(this.parent, items)
   }
 
   insert(item) {

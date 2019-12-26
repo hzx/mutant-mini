@@ -1,18 +1,23 @@
 
 class NodeObservableCollection extends NodeCollection {
-  constructor(parent, collection, render) {
+  constructor(parent, collection, render, processChildren, beforeSetChildren) {
     super(parent, [])
     this.collection = collection
     this.renderItem = render
+    this.processChildren = processChildren
+    this.beforeSetChildren = beforeSetChildren
   }
 
   render() {
-    const items = this.collection.map((item, i) => {
+    return this.collection.map((item, i) => {
       const ritem = this.renderItem(item, i)
       setVirtualNodeId(ritem, item.getId())
       return ritem
     }).filter(item => item)
-    this.set(items)
+  }
+
+  init() {
+    this.setChildren(this.render())
   }
 
   enter() {
@@ -39,8 +44,15 @@ class NodeObservableCollection extends NodeCollection {
     this.collection.oEmpty.unsubscribe(this.onEmpty)
   }
 
+  setChildren(items) {
+    if (this.beforeSetChildren) this.beforeSetChildren(this.parent)
+    emptyNodes(this.parent)
+    super.set(items)
+    setChildren(this.parent, items, this.processChildren)
+  }
+
   onSet = () => {
-    this.render()
+    this.init()
   }
 
   onInsert = (item) => {

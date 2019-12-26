@@ -63,6 +63,25 @@ function appendNodes(parent, vnodes) {
   })
 }
 
+function setChildren(parent, vnodes, processChildren) {
+  // TEST: to use DocumentFragment as a buffer
+  // const root = document.createDocumentFragment()
+
+  const root = getNode(parent)
+
+  vnodes.forEach(vnode => {
+    root.appendChild(getNode(vnode))
+    vnode.setParent(parent)
+  })
+
+  if (processChildren) processChildren(parent)
+
+  // const parentNode = getNode(parent)
+  // parentNode.appendChild(root)
+
+  if (parent.isEnter_) vnodes.forEach(vnode => { vnode.enter() })
+}
+
 function insertNode(parent, vnode) {
   const pnode = getNode(parent)
   vnode.exit()

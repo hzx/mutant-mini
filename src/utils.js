@@ -19,9 +19,9 @@ function reactiveComponent(obj, render, deps) {
   return c
 }
 
-function reactiveElementMap(name, attrs, events, collection, render) {
-  const e = new ReactiveElementMap(name, attrs, events, collection, render)
-  e.children.render()
+function reactiveElementMap(name, attrs, events, collection, render, processChildren, beforeSetChildren) {
+  const e = new ReactiveElementMap(name, attrs, events, collection, render, processChildren, beforeSetChildren)
+  e.children.init()
   return e
 }
 

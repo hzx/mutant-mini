@@ -72,6 +72,10 @@ class Collection {
     return this.items.find(func)
   }
 
+  findIndex(func) {
+    return this.items.findIndex(func)
+  }
+
   insert(item) {
     const items = new Array(this.items.length + 1)
     items[0] = item

@@ -11,6 +11,7 @@ class CommonElement {
     this.events = events
     this.node = document.createElement(name)
     this.parent = null
+    this.nextSiblingBackup = null
 
     this.setAttributes()
   }
@@ -44,6 +45,18 @@ class CommonElement {
       getNode(this.parent).removeChild(this.node)
       this.parent = null
     }
+  }
+
+  attach() {
+    if (!this.parent) return
+    getNode(this.parent).insertBefore(this.node, this.nextSiblingBackup)
+    this.nextSiblingBackup = null
+  }
+
+  detach() {
+    if (!this.parent) return
+    this.nextSiblingBackup = this.node.nextSibling
+    getNode(this.parent).removeChild(this.node)
   }
 
   on(name, handler) {
@@ -88,6 +101,7 @@ class CommonElement {
   }
 
   addClass(name) {
+    if (!name || name.length === 0) return
     this.node.classList.add(name)
   }
 

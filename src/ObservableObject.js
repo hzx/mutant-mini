@@ -42,6 +42,11 @@ class ObservableObject extends Observable {
     return this.has(name) ? this.obj[name].get() : defaultValue
   }
 
+  getEmbeddedValue(names, defaultValue) {
+    const prop = this.getEmbeddedProperty(names.split('.'))
+    return prop ? prop.get() : defaultValue
+  }
+
   getEmbeddedProperty(names) {
     let current = this.obj
     const last = names.length - 1

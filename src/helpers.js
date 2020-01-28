@@ -53,6 +53,35 @@ function setObjectField(obj, name, value) {
   }
 }
 
+function updateObservable(obj, data) {
+  if (!obj) return false
+  switch (obj.observableType) {
+    case OBSERVABLE_TYPE_OBJECT:
+      return updateObservableObject(obj, data)
+    case OBSERVABLE_TYPE_VALUE:
+      return obj.set(data)
+    case OBSERVABLE_TYPE_COLLECTION:
+      return updateObservableCollection(obj, data)
+    default:
+      throw new Error(`updateObservable unknown observableType: ${obj.observableType}`)
+  }
+}
+
+function updateObservableObject(obj, data) {
+  let updated = false
+  for (let name in data) {
+    if (updateObservable(obj.getProperty(name), data[name])) updated = true
+  }
+  return updated
+}
+
+function updateObservableCollection(coll, items) {
+  if (!isArrayLike(items)) return false
+  // TODO(dem) find diff, update existing items, add new
+  coll.set(toObservablesArray(items))
+  return true
+}
+
 function appendNodes(parent, vnodes) {
   const pnode = getNode(parent)
   vnodes.forEach(vnode => {

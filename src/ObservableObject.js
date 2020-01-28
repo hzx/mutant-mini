@@ -59,11 +59,7 @@ class ObservableObject extends Observable {
     return current[names[last]]
   }
 
-  update(obj) {
-    let updated = false
-    for (let name in obj) {
-      if (this.set(name, obj[name])) updated = true
-    }
-    return updated
+  update(data) {
+    return updateObservableObject(this, data)
   }
 }

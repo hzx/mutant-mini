@@ -62,8 +62,8 @@ function updateObservable(obj, data) {
       return obj.set(data)
     case OBSERVABLE_TYPE_COLLECTION:
       return updateObservableCollection(obj, data)
-    default:
-      throw new Error(`updateObservable unknown observableType: ${obj.observableType}`)
+    default: // ignore id, non existing fields
+      return false
   }
 }
 

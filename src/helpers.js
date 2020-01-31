@@ -69,8 +69,10 @@ function updateObservable(obj, data) {
 
 function updateObservableObject(obj, data) {
   let updated = false
+  let prop
   for (let name in data) {
-    if (updateObservable(obj.getProperty(name), data[name])) updated = true
+    prop = name.indexOf('.') !== -1 ? obj.getEmbeddedProperty(name.split('.')) : obj.getProperty(name)
+    if (updateObservable(prop, data[name])) updated = true
   }
   return updated
 }

@@ -167,6 +167,10 @@ class Collection {
     return this.items.length === 0
   }
 
+  reverse() {
+    this.items.reverse()
+  }
+
   static getIndex(items, id) {
     return items.findIndex((item, i, arr) => (item.getId ? item.getId() : item.id) === id)
   }

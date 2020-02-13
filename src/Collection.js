@@ -36,6 +36,12 @@ class Collection {
     return nextIndex >= this.items.length ? null : this.items[nextIndex]
   }
 
+  getPrev(id) {
+    const index = Collection.getIndex(this.items, id)
+    const prevIndex = index - 1
+    return prevIndex < 0 ? null : this.items[prevIndex]
+  }
+
   set(items) {
     this.items = items
   }

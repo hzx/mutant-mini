@@ -39,10 +39,12 @@ function toObservable(obj) {
 
 function toObservableObject(obj) {
   const robj = {}
+  let value
   for (let name in obj) {
     // skip id, must be string type
     if (name !== 'id') {
-      robj[name] = toObservable(obj[name])
+      value = obj[name]
+      robj[name] = value.observableType ? value : toObservable(value)
     }
   }
 

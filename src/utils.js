@@ -44,7 +44,7 @@ function toObservableObject(obj) {
     // skip id, must be string type
     if (name !== 'id') {
       value = obj[name]
-      robj[name] = value.observableType ? value : toObservable(value)
+      robj[name] = value && value.observableType ? value : toObservable(value)
     }
   }
 

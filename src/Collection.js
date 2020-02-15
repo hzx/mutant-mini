@@ -43,6 +43,7 @@ class Collection {
   }
 
   set(items) {
+    if (items) items.forEach(item => ensureCollectionItemId(item))
     this.items = items
   }
 
@@ -83,6 +84,7 @@ class Collection {
   }
 
   insert(item) {
+    ensureCollectionItemId(item)
     const items = new Array(this.items.length + 1)
     items[0] = item
 
@@ -94,6 +96,7 @@ class Collection {
   }
 
   append(item) {
+    ensureCollectionItemId(item)
     this.items.push(item)
   }
 
@@ -102,6 +105,8 @@ class Collection {
       this.append(item)
       return
     }
+
+    ensureCollectionItemId(item)
 
     const beforeIndex = Collection.getIndex(this.items, beforeId)
     if (beforeIndex === -1) throw new Error(`Collection.insertBefore beforeId="${beforeId}" not found`)
@@ -178,6 +183,6 @@ class Collection {
   }
 
   static getIndex(items, id) {
-    return items.findIndex((item, i, arr) => (item.getId ? item.getId() : item.id) === id)
+    return items.findIndex((item, i, arr) => getCollectionItemId(item) === id)
   }
 }

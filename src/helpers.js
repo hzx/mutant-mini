@@ -22,6 +22,15 @@ function getVirtualNodeId(vnode) {
   return getVirtualNode(vnode).id
 }
 
+function getCollectionItemId(item) {
+  return item.getId ? item.getId() : item.id
+}
+
+function ensureCollectionItemId(item) {
+  // simple item
+  if (!item.getId && !item.id) item.id = Hasher.generate()
+}
+
 function getObjectValue(obj, dep) {
   if (typeof dep === 'string') {
     return obj[dep]

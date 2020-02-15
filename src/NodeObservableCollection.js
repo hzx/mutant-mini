@@ -11,7 +11,7 @@ class NodeObservableCollection extends NodeCollection {
   render() {
     return this.collection.map((item, i) => {
       const ritem = this.renderItem(item, i)
-      setVirtualNodeId(ritem, item.getId())
+      setVirtualNodeId(ritem, getCollectionItemId(item))
       return ritem
     }).filter(item => item)
   }
@@ -57,19 +57,19 @@ class NodeObservableCollection extends NodeCollection {
 
   onInsert = (item) => {
     const vnode = this.renderItem(item)
-    setVirtualNodeId(vnode, item.getId())
+    setVirtualNodeId(vnode, getCollectionItemId(item))
     if (vnode) this.insert(vnode)
   }
 
   onAppend = (item) => {
     const vnode = this.renderItem(item)
-    setVirtualNodeId(vnode, item.getId())
+    setVirtualNodeId(vnode, getCollectionItemId(item))
     if (vnode) this.append(vnode)
   }
 
   onInsertBefore = ({item, beforeId}) => {
     const vnode = this.renderItem(item)
-    setVirtualNodeId(vnode, item.getId())
+    setVirtualNodeId(vnode, getCollectionItemId(item))
     if (vnode) this.insertBefore(vnode, beforeId)
   }
 

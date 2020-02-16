@@ -46,8 +46,9 @@ class ObservableCollection extends Collection {
   }
 
   remove(id) {
-    super.remove(id)
+    const item = super.remove(id)
     this.oRemove.notify(id)
+    return item
   }
 
   empty() {

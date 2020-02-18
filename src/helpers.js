@@ -27,7 +27,8 @@ function getCollectionItemId(item) {
 }
 
 function ensureCollectionItemId(item) {
-  // simple item
+  if (isValueType(item)) return
+  // simple object
   if (!item.getId && !item.id) item.id = Hasher.generate()
 }
 

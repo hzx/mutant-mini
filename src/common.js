@@ -9,9 +9,9 @@ const OBSERVABLE_TYPE_COLLECTION = 3
 
 const PROCESS_CHUNK_TIME = 60
 
-function nextTick(func) {
-  setTimeout(func, 0)
-}
+const nextTickSetTimeout = (func) => setTimeout(func, 0)
+const nextTickRequestAnimationFrame = (func) => window.requestAnimationFrame(func)
+const nextTick = window.requestAnimationFrame ? nextTickRequestAnimationFrame : nextTickSetTimeout
 
 // return processed with handler items Promise
 function process(items, handler) {

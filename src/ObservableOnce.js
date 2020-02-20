@@ -7,7 +7,7 @@ class ObservableOnce extends Observable {
 
   subscribe(handler) {
     if (this.finished) {
-      handler()
+      mutant.nextTick(handler)
       return
     }
 

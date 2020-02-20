@@ -21,6 +21,7 @@ cat \
   ReactiveTextNode.js \
   ReactiveElementMap.js \
   ReactiveFilter.js \
+  Router.js \
   utils.js \
   exports.js \
   > ../mutant-mini.js

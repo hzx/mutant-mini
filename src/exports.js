@@ -29,6 +29,7 @@ export default {
   rt: reactiveTextNode,
   ReactiveFilter,
   Component,
+  Router,
   render,
   attach,
   remove,

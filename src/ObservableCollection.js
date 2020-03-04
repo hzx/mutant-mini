@@ -59,4 +59,12 @@ class ObservableCollection extends Collection {
   notifyItemUpdate(item) {
     this.oItemUpdate.notify(item)
   }
+
+  clone() {
+    return toObservableCollection(cleanObservable(this))
+  }
+
+  cloneToArray() {
+    return toObservablesArray(cleanObservable(this))
+  }
 }

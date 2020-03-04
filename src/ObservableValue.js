@@ -22,4 +22,8 @@ class ObservableValue extends Observable {
   toString() {
     return this.value ? this.value.toString() : this.value
   }
+
+  clone() {
+    return new ObservableValue(this.value)
+  }
 }

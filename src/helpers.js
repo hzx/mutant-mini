@@ -177,6 +177,8 @@ function isValueType(obj) {
     case 'boolean':
     case 'function':
       return true
+    case 'object':
+      return typeof obj.getMonth === 'function'
     default:
       return false
   }

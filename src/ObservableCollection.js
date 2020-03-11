@@ -26,6 +26,12 @@ class ObservableCollection extends Collection {
     this.oInsert.notify(item)
   }
 
+  insertSorted(item, compare) {
+    const beforeIndex = this.items.findIndex(it => compare(it))
+    const beforeId = beforeIndex >= 0 ? getCollectionItemId(this.items[beforeIndex]) : null
+    this.insertBefore(item, beforeId)
+  }
+
   append(item) {
     super.append(item)
     this.oAppend.notify(item)

@@ -95,6 +95,13 @@ class Collection {
     this.items = items
   }
 
+  insertSorted(item, compare) {
+    ensureCollectionItemId(item)
+    const beforeIndex = this.items.findIndex(it => compare(it))
+    const beforeId = beforeIndex >= 0 ? getCollectionItemId(this.items[beforeIndex]) : null
+    this.insertBefore(item, beforeId)
+  }
+
   append(item) {
     ensureCollectionItemId(item)
     this.items.push(item)

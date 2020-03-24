@@ -189,6 +189,16 @@ class Collection {
     this.items.reverse()
   }
 
+  getPageCount(pageSize) {
+    const rem = this.items.length % pageSize
+    return Math.round(this.items.length / pageSize) + (rem ? 1 : 0)
+  }
+
+  getPageItems(page, pageSize) {
+    const begin = page * pageSize
+    return this.items.slice(begin, begin + pageSize)
+  }
+
   static getIndex(items, id) {
     return items.findIndex((item, i, arr) => getCollectionItemId(item) === id)
   }

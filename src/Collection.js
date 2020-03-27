@@ -191,7 +191,7 @@ class Collection {
 
   getPageCount(pageSize) {
     const rem = this.items.length % pageSize
-    return Math.round(this.items.length / pageSize) + (rem ? 1 : 0)
+    return (this.items.length - rem) / pageSize + (rem ? 1 : 0)
   }
 
   getPageItems(page, pageSize) {

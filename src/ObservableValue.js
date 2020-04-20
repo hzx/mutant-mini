@@ -19,6 +19,10 @@ class ObservableValue extends Observable {
     return this.value
   }
 
+  getId() {
+    return this.id || this.value
+  }
+
   toString() {
     return this.value ? this.value.toString() : this.value
   }

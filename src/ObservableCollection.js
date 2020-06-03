@@ -13,6 +13,7 @@ class ObservableCollection extends Collection {
     this.oRemove = new Observable()
     this.oEmpty = new Observable()
     this.oItemUpdate = new Observable()
+    this.oSetFilter = new Observable()
   }
 
   set(items) {
@@ -60,6 +61,12 @@ class ObservableCollection extends Collection {
   empty() {
     super.empty()
     this.oEmpty.notify()
+  }
+
+  setFilter(func) {
+    if (super.setFilter(func)) {
+      this.oSetFilter.notify()
+    }
   }
 
   notifyItemUpdate(item) {

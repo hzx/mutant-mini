@@ -30,6 +30,7 @@ class NodeObservableCollection extends NodeCollection {
     this.collection.oMove.subscribe(this.onMove)
     this.collection.oRemove.subscribe(this.onRemove)
     this.collection.oEmpty.subscribe(this.onEmpty)
+    this.collection.oSetFilter.subscribe(this.onSetFilter)
   }
 
   exit() {
@@ -42,6 +43,7 @@ class NodeObservableCollection extends NodeCollection {
     this.collection.oMove.unsubscribe(this.onMove)
     this.collection.oRemove.unsubscribe(this.onRemove)
     this.collection.oEmpty.unsubscribe(this.onEmpty)
+    this.collection.oSetFilter.unsubscribe(this.onSetFilter)
   }
 
   setChildren(items) {
@@ -83,5 +85,36 @@ class NodeObservableCollection extends NodeCollection {
 
   onEmpty = () => {
     this.empty()
+  }
+
+  onSetFilter = () => {
+    let item, filteredItem
+    const filtered = []
+
+    if (!this.collection.filtered) {
+      this.filtered = null
+      for (let i = 0; i < this.items.length; ++i) {
+        item = this.items[i]
+        filterNode(item, true)
+      }
+      return
+    }
+
+    for (let i = 0, f = 0; i < this.items.length; ++i) {
+      item = this.items[i]
+      if (f < this.collection.filtered.length) {
+        filteredItem = this.collection.filtered[f]
+        if (getCollectionItemId(item) === getCollectionItemId(filteredItem)) {
+          ++f
+          filtered.push(item)
+          filterNode(item, true)
+        } else {
+          filterNode(item, false)
+        }
+      } else {
+        filterNode(item, false)
+      }
+    }
+    this.filtered = filtered
   }
 }

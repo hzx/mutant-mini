@@ -170,6 +170,18 @@ function setVirtualNodeId(vnode, id) {
   }
 }
 
+function filterNode(vnode, flag) {
+  const node = getNode(vnode)
+
+  if (flag) {
+    node.classList.add('filter')
+    node.classList.remove('hidden')
+  } else {
+    node.classList.remove('filter')
+    node.classList.add('hidden')
+  }
+}
+
 function isValueType(obj) {
   switch (typeof obj) {
     case 'string':

@@ -3,6 +3,7 @@ class ObservableCollection extends Collection {
   constructor(items) {
     super(items)
     this.observableType = OBSERVABLE_TYPE_COLLECTION
+    this.updateHash()
     // events
     this.oBeforeSet = new Observable()
     this.oSet = new Observable()
@@ -19,11 +20,13 @@ class ObservableCollection extends Collection {
   set(items) {
     this.oBeforeSet.notify()
     super.set(items)
+    this.updateHash()
     this.oSet.notify()
   }
 
   insert(item) {
     super.insert(item)
+    this.updateHash()
     this.oInsert.notify(item)
   }
 
@@ -35,6 +38,7 @@ class ObservableCollection extends Collection {
 
   append(item) {
     super.append(item)
+    this.updateHash()
     this.oAppend.notify(item)
   }
 
@@ -44,22 +48,26 @@ class ObservableCollection extends Collection {
       return
     }
     super.insertBefore(item, beforeId)
+    this.updateHash()
     this.oInsertBefore.notify({item, beforeId})
   }
 
   move(id, beforeId) {
     super.move(id, beforeId)
+    this.updateHash()
     this.oMove.notify({id, beforeId})
   }
 
   remove(id) {
     const item = super.remove(id)
+    this.updateHash()
     this.oRemove.notify(id)
     return item
   }
 
   empty() {
     super.empty()
+    this.updateHash()
     this.oEmpty.notify()
   }
 
@@ -79,5 +87,9 @@ class ObservableCollection extends Collection {
 
   cloneToArray() {
     return toObservablesArray(cleanObservable(this))
+  }
+
+  updateHash() {
+    this.hash = Hasher.generate()
   }
 }

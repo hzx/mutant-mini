@@ -4,6 +4,7 @@ class ObservableValue extends Observable {
     super()
     this.observableType = OBSERVABLE_TYPE_VALUE
     this.value = value
+    this.updateHash()
   }
 
   set(value) {
@@ -11,6 +12,7 @@ class ObservableValue extends Observable {
 
     const old = this.value
     this.value = value
+    this.updateHash()
     this.notify({value, old})
     return true
   }
@@ -29,5 +31,9 @@ class ObservableValue extends Observable {
 
   clone() {
     return new ObservableValue(this.value)
+  }
+
+  updateHash() {
+    this.hash = Hasher.generate()
   }
 }

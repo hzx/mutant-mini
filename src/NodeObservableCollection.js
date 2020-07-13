@@ -6,6 +6,7 @@ class NodeObservableCollection extends NodeCollection {
     this.renderItem = render
     this.processChildren = processChildren
     this.beforeSetChildren = beforeSetChildren
+    this.hash = collection.hash
   }
 
   render() {
@@ -31,6 +32,10 @@ class NodeObservableCollection extends NodeCollection {
     this.collection.oRemove.subscribe(this.onRemove)
     this.collection.oEmpty.subscribe(this.onEmpty)
     this.collection.oSetFilter.subscribe(this.onSetFilter)
+
+    if (this.hash !== this.collection.hash) { // collection was changed
+      this.init()
+    }
   }
 
   exit() {

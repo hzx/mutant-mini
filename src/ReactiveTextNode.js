@@ -7,11 +7,16 @@ class ReactiveTextNode {
     this.parent = null
     this.value = ovalue
     this.render = render
+    this.hash = ovalue.hash
     this.onValueChange()
   }
 
   enter() {
     this.value.subscribe(this.onValueChange)
+
+    if (this.hash !== this.value.hash) { // value was updated
+      this.onValueChange()
+    }
   }
 
   exit() {

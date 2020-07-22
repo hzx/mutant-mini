@@ -1,12 +1,13 @@
 
 class NodeObservableCollection extends NodeCollection {
-  constructor(parent, collection, render, processChildren, beforeSetChildren) {
+  constructor(parent, collection, render, processChildren, beforeSetChildren, afterRerender) {
     super(parent, [])
     this.collection = collection
     this.renderItem = render
     this.processChildren = processChildren
     this.beforeSetChildren = beforeSetChildren
-    this.hash = collection.hash
+    this.afterRerender = afterRerender
+    this.syncHash()
   }
 
   render() {
@@ -35,6 +36,7 @@ class NodeObservableCollection extends NodeCollection {
 
     if (this.hash !== this.collection.hash) { // collection was changed
       this.init()
+      if (this.afterRerender) this.afterRerender()
     }
   }
 
@@ -58,41 +60,54 @@ class NodeObservableCollection extends NodeCollection {
     setChildren(this.parent, items, this.processChildren)
   }
 
+  syncHash() {
+    this.hash = this.collection.hash
+  }
+
   onSet = () => {
+    this.syncHash()
     this.init()
   }
 
   onInsert = (item) => {
+    this.syncHash()
     const vnode = this.renderItem(item)
     setVirtualNodeId(vnode, getCollectionItemId(item))
     if (vnode) this.insert(vnode)
   }
 
   onAppend = (item) => {
+    this.syncHash()
     const vnode = this.renderItem(item)
     setVirtualNodeId(vnode, getCollectionItemId(item))
     if (vnode) this.append(vnode)
   }
 
   onInsertBefore = ({item, beforeId}) => {
+    this.syncHash()
     const vnode = this.renderItem(item)
     setVirtualNodeId(vnode, getCollectionItemId(item))
     if (vnode) this.insertBefore(vnode, beforeId)
   }
 
   onMove = ({id, beforeId}) => {
+    this.syncHash()
     this.move(id, beforeId)
   }
 
   onRemove = (id) => {
+    this.syncHash()
     this.remove(id)
   }
 
   onEmpty = () => {
+    this.syncHash()
     this.empty()
   }
 
   onSetFilter = () => {
+    this.syncHash()
+
     let item, filteredItem
     const filtered = []
 

@@ -7,7 +7,6 @@ class ReactiveTextNode {
     this.parent = null
     this.value = ovalue
     this.render = render
-    this.hash = ovalue.hash
     this.onValueChange()
   }
 
@@ -31,7 +30,12 @@ class ReactiveTextNode {
     return this.node
   }
 
+  syncHash() {
+    this.hash = this.value.hash
+  }
+
   onValueChange = () => {
+    this.syncHash()
     this.node.textContent = this.render ? this.render(this.value.get()) : this.value.get()
   }
 }

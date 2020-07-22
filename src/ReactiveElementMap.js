@@ -1,8 +1,8 @@
 
 class ReactiveElementMap extends CommonElement {
-  constructor(name, attrs, events, collection, render, processChildren, beforeSetChildren) {
+  constructor(name, attrs, events, collection, render, processChildren, beforeSetChildren, afterRerender) {
     super(name, attrs, events)
-    this.children = new NodeObservableCollection(this, collection, render, processChildren, beforeSetChildren)
+    this.children = new NodeObservableCollection(this, collection, render, processChildren, beforeSetChildren, afterRerender)
     this.isEnter_ = false
   }
 

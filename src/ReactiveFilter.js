@@ -1,11 +1,13 @@
 
 class ReactiveFilter {
   // groups - [{element, collection, filter, render}...]
-  constructor(collection, groups, processChildren, beforeSetChildren) {
+  constructor(collection, groups, processChildren, beforeSetChildren, afterRerender) {
     this.collection = collection
     this.groups = groups
     this.processChildren = processChildren
     this.beforeSetChildren = beforeSetChildren
+    this.afterRerender = afterRerender
+    this.syncHash()
   }
 
   enter() {
@@ -17,6 +19,11 @@ class ReactiveFilter {
     this.collection.oRemove.subscribe(this.onRemove)
     this.collection.oEmpty.subscribe(this.onEmpty)
     this.collection.oItemUpdate.subscribe(this.onItemUpdate)
+
+    if (this.hash !== this.collection.hash) { // collection was changed
+      this.render()
+      if (this.afterRerender) this.afterRerender()
+    }
   }
 
   exit() {
@@ -54,10 +61,13 @@ class ReactiveFilter {
   }
 
   onSet = () => {
+    this.syncHash()
     this.render()
   }
 
   onInsert = (item) => {
+    this.syncHash()
+
     const group = this.findObjectGroupByFilter(item)
     if (!group) return
 
@@ -66,6 +76,8 @@ class ReactiveFilter {
   }
 
   onAppend = (item) => {
+    this.syncHash()
+
     const group = this.findObjectGroupByFilter(item)
     if (!group) return
 
@@ -74,6 +86,8 @@ class ReactiveFilter {
   }
 
   onInsertBefore = ({item, beforeId}) => {
+    this.syncHash()
+
     const group = this.findObjectGroupByFilter(item)
     if (!group) return
 
@@ -82,6 +96,8 @@ class ReactiveFilter {
   }
 
   onMove = ({id, beforeId}) => {
+    this.syncHash()
+
     const item = this.collection.get(id)
     if (!item) throw new Error(`onMove id="${id}" not found`)
 
@@ -111,6 +127,8 @@ class ReactiveFilter {
   }
 
   onRemove = (id) => {
+    this.syncHash()
+
     const group = this.findObjectGroup(id)
     if (!group) return
 
@@ -119,6 +137,8 @@ class ReactiveFilter {
   }
 
   onEmpty = () => {
+    this.syncHash()
+
     this.groups.forEach(group => {
       group.collection.empty()
       group.element.children.empty()
@@ -126,6 +146,8 @@ class ReactiveFilter {
   }
 
   onItemUpdate = (item) => {
+    this.syncHash()
+
     // move item between groups
     const id = item.getId()
     const group = this.findObjectGroup(id)
@@ -203,5 +225,9 @@ class ReactiveFilter {
     let item = this.findGroupNextItem(id, group)
     if (item && item.getId() === exclude) item = this.findGroupNextItem(exclude, group)
     return item
+  }
+
+  syncHash() {
+    this.hash = this.collection.hash
   }
 }

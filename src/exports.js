@@ -18,6 +18,8 @@ export default {
   ObservableValue,
   ObservableObject,
   ObservableCollection,
+  Handler,
+  CollectionHandler,
   ValueDecorator,
   e: element,
   div,

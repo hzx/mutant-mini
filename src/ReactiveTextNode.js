@@ -7,19 +7,20 @@ class ReactiveTextNode {
     this.parent = null
     this.value = ovalue
     this.render = render
-    this.onValueChange()
+    this.handler = new Handler(ovalue, this.renderValue)
+    this.renderValue()
+  }
+
+  renderValue = () => {
+    this.node.textContent = this.render ? this.render(this.value.get()) : this.value.get()
   }
 
   enter() {
-    this.value.subscribe(this.onValueChange)
-
-    if (this.hash !== this.value.hash) { // value was updated
-      this.onValueChange()
-    }
+    this.handler.enter()
   }
 
   exit() {
-    this.value.unsubscribe(this.onValueChange)
+    this.handler.exit()
   }
 
   setParent(parent) {
@@ -28,14 +29,5 @@ class ReactiveTextNode {
 
   getNode() {
     return this.node
-  }
-
-  syncHash() {
-    this.hash = this.value.hash
-  }
-
-  onValueChange = () => {
-    this.syncHash()
-    this.node.textContent = this.render ? this.render(this.value.get()) : this.value.get()
   }
 }

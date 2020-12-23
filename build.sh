@@ -1,6 +1,7 @@
 cd ./src
 cat \
   common.js \
+  AsyncTrigger.js \
   net.js \
   Hasher.js \
   Collection.js \

@@ -1,7 +1,7 @@
 
 export default {
   Hasher,
-  AsyncTrigger,
+  AsyncFunction,
   get,
   toObservable,
   toObservableValue,

@@ -23,7 +23,7 @@ function getVirtualNodeId(vnode) {
 }
 
 function getCollectionItemId(item) {
-  return item.getId ? item.getId() : item.id
+  return item.getId ? item.getId() : (item.id || item)
 }
 
 function ensureCollectionItemId(item) {

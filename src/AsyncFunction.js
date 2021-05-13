@@ -1,7 +1,8 @@
 
 class AsyncFunction {
-  constructor(handler) {
+  constructor(handler, context) {
     this.handler = handler
+    this.context = context
     this.started = false
   }
 
@@ -11,7 +12,8 @@ class AsyncFunction {
 
     nextTick(() => {
       this.started = false
-      this.handler(...arguments)
+      if (this.context) this.handler.apply(this.context, arguments)
+      else this.handler(...arguments)
     })
   }
 }

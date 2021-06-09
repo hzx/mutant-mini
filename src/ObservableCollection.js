@@ -89,6 +89,10 @@ class ObservableCollection extends Collection {
     return toObservablesArray(cleanObservable(this))
   }
 
+  toArray() {
+    return cleanObservableCollection(this)
+  }
+
   updateHash() {
     this.hash = Hasher.generate()
   }

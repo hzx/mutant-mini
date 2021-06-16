@@ -95,7 +95,7 @@ function cleanObservable(obj) {
 }
 
 function isEqual(a, b) {
-  if (!a.observableType || !b.observableType) return a === b
+  if (!a || !b || !a.observableType || !b.observableType) return a === b
 
   if (a.observableType !== b.observableType) throw new Error(`mutant.isEqual a.observableType (${a.observableType}) !== b.observableType (${b.observableType})`)
 

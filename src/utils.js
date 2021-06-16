@@ -131,6 +131,7 @@ function isObservableObjectsEqual(a, b) {
 
   for (let i = 0, name; i < akeys.length; ++i) {
     name = akeys[i]
+    if (name === 'id') continue // ignore id
     if (name !== bkeys[i]) return false
     if (!isEqual(a.obj[name], b.obj[name])) return false
   }

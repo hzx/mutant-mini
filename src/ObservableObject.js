@@ -66,4 +66,8 @@ class ObservableObject extends Observable {
   clone() {
     return toObservableObject(cleanObservable(this))
   }
+
+  toObject() {
+    return cleanObservable(this)
+  }
 }

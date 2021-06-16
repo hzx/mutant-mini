@@ -90,8 +90,56 @@ function cleanObservable(obj) {
     case OBSERVABLE_TYPE_COLLECTION:
       return cleanObservableCollection(obj)
     default:
-      throw new Error(`mutant.cleanObservablei unknown obj.observableType: ${obj.observableType}`)
+      throw new Error(`mutant.cleanObservable unknown obj.observableType: ${obj.observableType}`)
   }
+}
+
+function isEqual(a, b) {
+  if (!a.observableType || !b.observableType) return a === b
+
+  if (a.observableType !== b.observableType) throw new Error(`mutant.isEqual a.observableType (${a.observableType}) !== b.observableType (${b.observableType})`)
+
+  switch (a.observableType) {
+    case OBSERVABLE_TYPE_OBJECT:
+      return isObservableObjectsEqual(a, b)
+    case OBSERVABLE_TYPE_VALUE:
+      return isObservableValuesEqual(a, b)
+    case OBSERVABLE_TYPE_COLLECTION:
+      return isObservableCollectionsEqual(a, b)
+    default:
+      throw new Error(`mutant.isEqual unknown a.observableType: ${a.observableType}`)
+  }
+}
+
+function isObservableCollectionsEqual(a, b) {
+  if (a.size() !== b.size()) return false
+
+  const aitems = a.getItems()
+  const bitems = b.getItems()
+  for (let i = 0; i < aitems.length; ++i) {
+    if (!isEqual(aitems[i], bitems[i])) return false
+  }
+
+  return true
+}
+
+function isObservableObjectsEqual(a, b) {
+  const akeys = Object.keys(a.obj)
+  const bkeys = Object.keys(b.obj)
+
+  if (akeys.length !== bkeys.length) return false
+
+  for (let i = 0, name; i < akeys.length; ++i) {
+    name = akeys[i]
+    if (name !== bkeys[i]) return false
+    if (!isEqual(a.obj[name], b.obj[name])) return false
+  }
+
+  return true
+}
+
+function isObservableValuesEqual(a, b) {
+  return isEqual(a.get(), b.get())
 }
 
 function cleanObservableObject(obj) {

@@ -10,6 +10,7 @@ cat \
   ObservableValue.js \
   ObservableObject.js \
   ObservableCollection.js \
+  ObservableCollectionSync.js \
   Handler.js \
   ValueDecorator.js \
   helpers.js \

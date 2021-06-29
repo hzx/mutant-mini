@@ -23,6 +23,7 @@ export default {
   ObservableValue,
   ObservableObject,
   ObservableCollection,
+  ObservableCollectionSync,
   Handler,
   CollectionHandler,
   ValueDecorator,

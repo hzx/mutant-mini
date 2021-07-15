@@ -2,6 +2,7 @@
 export default {
   Hasher,
   AsyncFunction,
+  OnceCallFunction,
   get,
   toObservable,
   toObservableValue,

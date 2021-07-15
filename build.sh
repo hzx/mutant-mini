@@ -2,6 +2,7 @@ cd ./src
 cat \
   common.js \
   AsyncFunction.js \
+  OnceCallFunction.js \
   net.js \
   Hasher.js \
   Collection.js \

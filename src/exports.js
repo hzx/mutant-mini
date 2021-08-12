@@ -34,6 +34,7 @@ export default {
   component,
   rc: reactiveComponent,
   rmap: reactiveElementMap,
+  rmapState: reactiveElementMapWithState,
   t: textNode,
   rt: reactiveTextNode,
   ReactiveFilter,

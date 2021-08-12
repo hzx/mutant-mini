@@ -7,10 +7,15 @@ class NodeObservableCollection extends NodeCollection {
     this.processChildren = processChildren
     this.beforeSetChildren = beforeSetChildren
     this.afterRerender = afterRerender
+    this.passState = false
     this.syncHash()
   }
 
   render() {
+    return this.passState ? this.renderWithState_() : this.render_()
+  }
+
+  render_() {
     return this.collection.map((item, i) => {
       const ritem = this.renderItem(item, i)
       setVirtualNodeId(ritem, getCollectionItemId(item))
@@ -18,8 +23,25 @@ class NodeObservableCollection extends NodeCollection {
     }).filter(item => item)
   }
 
+  renderWithState_() {
+    const result = new Array(this.collection.size())
+    const state = {}
+
+    this.collection.forEach((item, i) => {
+      const ritem = this.renderItem(item, i, state)
+      setVirtualNodeId(ritem, getCollectionItemId(item))
+      result[i] = ritem
+    })
+
+    return result
+  }
+
   init() {
     this.setChildren(this.render())
+  }
+
+  enablePassState() {
+    this.passState = true
   }
 
   enter() {

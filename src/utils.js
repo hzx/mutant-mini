@@ -25,6 +25,13 @@ function reactiveElementMap(name, attrs, events, collection, render, processChil
   return e
 }
 
+function reactiveElementMapWithState(name, attrs, events, collection, render) {
+  const e = new ReactiveElementMap(name, attrs, events, collection, render)
+  e.children.enablePassState()
+  e.children.init()
+  return e
+}
+
 function reactiveTextNode(value, render) {
   return new ReactiveTextNode(value, render)
 }

@@ -22,6 +22,7 @@ class ObservableCollection extends Collection {
     super.set(items)
     this.updateHash()
     this.oSet.notify()
+    return true
   }
 
   insert(item) {
